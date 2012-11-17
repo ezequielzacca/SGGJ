@@ -1,0 +1,67 @@
+security:
+    encoders:
+        Gremio\AbmBundle\Entity\Socio:
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
+        Gremio\ProveedoresBundle\Entity\Cajero:
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
+        Gremio\AbmBundle\Entity\UsuarioGremio:
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
+
+    providers:
+        proveedores:
+            providers: [socios_db,proveedores_db,gremio_db]
+        socios_db:
+          ##  entity: { class: GremioSecurityBundle:User, property: username }
+            entity: { class: Gremio\AbmBundle\Entity\Socio, property: username }
+        proveedores_db:
+            entity: { class: Gremio\ProveedoresBundle\Entity\Cajero, property: username }
+        gremio_db:
+            entity: { class: Gremio\AbmBundle\Entity\UsuarioGremio, property: username }
+            
+    firewalls:
+        todos:
+            pattern: /.*
+            form_login:
+                check_path: /login_check
+                login_path: /login
+            logout: true
+            security: true
+            anonymous: true
+            provider: proveedores
+            context: main
+            remember_me:
+                key:      "%secret%"
+                lifetime: 3600
+                path:     /
+                domain:   ~ # El valor predeterminado es el dominio actual de $_SERVER
+            
+        
+            
+          
+     
+     
+    access_control:
+        
+        - { path: /administracion/entidades/proveedor/lista, role: [ROLE_SOCIO, ROLE_GREMIO] }
+        - { path: /administracion/.*, role: ROLE_GREMIO }
+        - { path: /proveedor/.*, role: ROLE_PROVEEDOR }
+        - { path: /_wdt/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /_profiler/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /Cuenta/recuperar/datos, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
+        
+
+        
+    role_hierarchy:
+        ROLE_SOCIO: [ROLE_USER]
+        ROLE_DATAENTRY: [ROLE_USER]
+        ROLE_OTRO: [ROLE_USER]
+        ROLE_GREMIO: [ROLE_USER]
+        ROLE_PROVEEDOR: [ROLE_USER]

@@ -1,0 +1,94 @@
+<?php
+
+namespace Gremio\AbmBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Gremio\AbmBundle\Entity\Sexo
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Gremio\AbmBundle\Entity\SexoRepository")
+ */
+class Sexo
+{
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string $nombre
+     *
+     * @ORM\Column(name="nombre", type="string", length=50)
+     */
+    private $nombre;
+
+	/**
+     * @ORM\OneToMany(targetEntity="Socio", mappedBy="sexo")
+     */
+    protected $socios;
+	
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set string
+     *
+     * @param string $nombre
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+    /**
+     * Get string
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+	
+	public function __toString()
+	{
+		return $this->nombre;
+	}
+    public function __construct()
+    {
+        $this->socios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add socios
+     *
+     * @param Gremio\AbmBundle\Entity\Socio $socios
+     */
+    public function addSocio(\Gremio\AbmBundle\Entity\Socio $socios)
+    {
+        $this->socios[] = $socios;
+    }
+
+    /**
+     * Get socios
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getSocios()
+    {
+        return $this->socios;
+    }
+}

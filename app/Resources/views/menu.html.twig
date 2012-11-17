@@ -1,0 +1,52 @@
+ {% if is_granted('ROLE_PROVEEDOR') %}
+                        <li><a href="{{ path('proveedores') }}" class="mws-i-24 i-g-key">Autorizar Emision</a></li>
+                        <li><a href="{{ path('emisiones_autorizadas') }}" class="mws-i-24 i-table">Emisiones Autorizadas</a></li>
+ {% endif %}
+ {% if is_granted('ROLE_GREMIO') %}
+                    
+                        <li><a href="#" class="mws-i-24 i-male-contour">Socios</a>
+                            <ul  class="closed">
+                                <li><a href="{{ path('socio')}}">Lista de Socios</a></li>
+                            </ul>
+                        </li>
+                	<li><a href="#" class="mws-i-24 i-home-1">Proveedores</a>
+                            <ul class="closed">
+                                <li><a href="{{ path('administracion_entidades_proveedor')}}">Lista de Proveedores</a></li>
+       
+                            </ul>
+                        </li>
+                        <li><a href="#" class="mws-i-24 i-camera">Eventos</a>
+                            <ul class="closed">
+                                <li><a href="{{ path('administracion_entidades_evento')}}">Lista de Eventos</a></li>
+       
+                            </ul>
+                        </li>
+                        <li><a href="#" class="mws-i-24 i-user">Cajeros</a>
+                            <ul  class="closed">
+                                <li><a href="{{ path('administracion_entidades_cajero')}}">Lista de Cajeros</a></li>
+                               
+                            </ul>
+                        </li>
+                        <li><a href="#" class="mws-i-24 i-calculator">Administracion de Entidades</a>
+                            <ul  class="closed">
+                                <li><a href="{{ path('administracion_entidades_localidad')}}">Localidades</a>                            
+                                <li><a href="{{ path('administracion_entidades_reparticion') }}">Reparticiones</a></li>
+                                <li><a href="{{ path('administracion_entidades_seccion') }}">Secciones</a></li>
+                                <li><a href="{{ path('administracion_entidades_tiposocio') }}">Tipos de Socio</a></li>
+                                <li><a href="{{ path('administracion_entidades_rubro') }}" >Rubros</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0);" class="mws-i-24 i-bar-graph">Consultas</a>
+                            <ul class="closed">
+                                <li><a href="{{ path('administracion_consultas_emisiones_emitidas') }}">Emisiones Emitidas</a></li>
+                                <li><a href="{{ path('administracion_consultas_emisiones_anuladas') }}">Emisiones Anuladas</a></li>
+                                <li><a href="{{ path('administracion_consultas_pago_a_proveedores') }}?_format=pdf">Pago a Proveedores</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0);" class="mws-i-24 i-locked">Cierre Mensual</a>
+	                        <ul class="closed">
+	                        	<li><a href="{{ path('administracion_cierres') }}">Cierres Generados</a></li>
+	                        </ul>
+                        </li>
+                	
+ {% endif %}

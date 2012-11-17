@@ -1,0 +1,28 @@
+{% extends "GremioSecurityBundle::layout.html.twig" %}
+ 
+{% block title %}
+    {{ appname }} | Login
+{% endblock %}
+ 
+{% block body %}
+    {% if error %}
+        <div class="error">{{ error.message }}</div>
+    {% endif %}
+ 
+    <form id="login" action="{{ path('_security_check') }}" method="POST">
+         
+        <h1>LogIn</h1>
+        <fieldset id="inputs">                 
+                
+            <label >Nombre de Usuario</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" autofocus required />
+                
+                   
+                    <label >Contraseña</label>
+                    <input type="password" id="password" name="_password" required />
+        </fieldset>  
+            <fieldset id="actions">
+        <input type="submit" class="button medium blue" name="login" value="Loguear!" />
+        </fieldset>
+    </form>
+{% endblock %}

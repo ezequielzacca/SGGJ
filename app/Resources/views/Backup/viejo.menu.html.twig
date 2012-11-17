@@ -1,0 +1,77 @@
+  <ul id="menu">
+        
+        {% if is_granted('ROLE_GREMIO') %}
+        
+        <li>
+                <a href="#">Administracion de Datos</a>
+                <ul>
+                        <li>
+                <a href="#">Socios</a>
+                <ul>
+                        <li><a href="{{ path('socio')}}">Lista de Socios</a>                            
+                        <li><a href="{{ path('socio_new') }}">Alta de Socio</a></li>
+                        
+                </ul>
+                
+        </li>
+        <li>
+                <a href="#">Proveedores</a>
+                <ul>
+                        <li><a href="{{ path('administracion_entidades_proveedor')}}">Lista de Proveedores</a>                            
+                        <li><a href="{{ path('administracion_entidades_proveedor_new') }}">Alta de Proveedor</a></li>
+                        <li>
+                            <a href="#">Cajeros</a>
+                            <ul>
+                                    <li><a href="{{ path('administracion_entidades_cajero')}}">Lista de Cajeros</a>                            
+                                    <li><a href="{{ path('administracion_entidades_cajero_new') }}">Alta de Cajero</a></li>
+
+                            </ul>
+                        </li>
+                </ul>
+                
+        </li>
+                        <li><a href="{{ path('administracion_entidades_localidad')}}">Lista de Localidades</a>                            
+                        <li><a href="{{ path('administracion_entidades_reparticion') }}">Lista de Reparticiones</a></li>
+                        <li><a href="{{ path('administracion_entidades_seccion') }}">Lista de Secciones</a></li>
+                        <li><a href="{{ path('administracion_entidades_tiposocio') }}">Lista de Tipos de Socio</a></li>
+                        
+                </ul>
+                
+        </li>
+        
+        
+        {% endif %}
+        {% if is_granted('ROLE_SOCIO') %}
+        <li>
+                <a href="#">Socios</a>
+                <ul>
+                        <li><a href="{{ path('generar_emision') }}">Emision de Voucher</a>                            
+                        <li><a href="#">Voucher Emitidos</a></li>
+                        
+                </ul>
+        </li>
+        {% endif %}
+        {% if is_granted('ROLE_PROVEEDOR') %}
+        <li>
+                <a href="#">Proveedores</a>
+                <ul>
+                        <li><a href="#">Registrar Ticket</a>                            
+                        <li><a href="#">Tickets Registrados</a></li>
+                        
+                </ul>
+        </li>
+        {% endif %}
+         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <li><a href="#" >Mi Cuenta</a>
+            <ul>
+                <li><a href="{{ path('password') }}">Cambiar Contraseña</a></li>
+                <li><a href="#">Datos Personales</a></li>
+            </ul>
+        </li>
+       
+        <li><a href="{{ path('_security_logout') }}">Cerrar Sesion</a></li>
+        {% endif %}
+        {% if false==is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <li><a href="{{ path('recuperar') }}">Olvide Mi Contraseña</a></li>
+</ul>   {% endif %}
+                    

@@ -1,0 +1,92 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+	<div class="mws-panel grid_8">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-table-1">Lista de Cierres Realizados</span>
+                    </div>
+        <div>
+                {% if app.session.hasFlash('succes') %}
+
+                    <div class="mws-form-message success">
+                        {{ app.session.flash('succes') }}
+                    </div>
+                {% endif %}
+                {% if app.session.hasFlash('error') %}
+
+                    <div class="mws-form-message error">
+                        {{ app.session.flash('error') }}
+                    </div>
+                {% endif %}
+            </div>
+                    <div class="mws-panel-body">
+                        
+                        <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                            	<li><a href="javascript:void(0);" class="mws-ic-16 ic-add" id="nuevoCierre">Nuevo Cierre</a></li>
+                            	
+                            </ul>
+                        </div>
+
+<table class="mws-datatable-fn mws-table">
+    <thead>
+        <tr>
+            
+            <th>Periodo</th>
+            <th>Fecha de Realizacion</th>
+            <th>Usuario</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+    {% for cierre in cierres %}
+        <tr href="{{ url('administracion_cierres_panel', { 'lote': cierre.id }) }}" class="dbclickeable">
+           {# <td hidden="hidden"><a href="{{ path('socio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td> #}
+            <td>{{ cierre.descripcion }}</td>
+            <td>{{ cierre.fechaAlta is empty ? "" : cierre.fechaAlta | date("d/m/y")  }}</td>
+            
+            <td>{{ cierre.usuarioAlta }}</td>
+            {#<td>{{ entity.DomicilioLaboral }}</td>#}
+           {# <td>{{ entity.TelefonoLaboral }}</td>#}
+            {#<td>{{ entity.Sexo }}</td>#}
+            {#<td>{{ entity.NumeroMesa }}</td>#}
+            {#<td>{% if entity.IngresoJusticia %}{{ entity.IngresoJusticia|date('Y-m-d H:i:s') }}{% endif%}</td>#}
+            {#<td>{{ entity.Cbu }}</td>#}
+            {#<td>{{ entity.DomicilioParticular }}</td>#}
+            {#<td>{{ entity.TelefonoParticular }}</td>#}
+            {#<td>{{ entity.Email }}</td>#}
+            {#<td>{% if entity.FechaNacimiento %}{{ entity.FechaNacimiento|date('Y-m-d H:i:s') }}{% endif%}</td>#}
+           {# <td>
+                
+                    
+                
+                        <a class="mws-button small blue mostrar" href="{{ path('socio_show', { 'id': entity.id }) }}">Ver Datos</a>
+                    
+                        <a class="mws-button small blue" href="{{ path('socio_edit', { 'id': entity.id }) }}">Editar</a>
+                    
+            </td>
+#}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+                        </div>
+                </div>
+                <div id="dialogo" hidden="true">
+                <label>Periodo:</label>
+                <input id="calendario" type="text" class="fecha-lotes mws-textinput"/>
+                <a href="javascript:void(0);" id="generar" class="mws-button small green">Generar</a>
+                </div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+<script type="text/javascript">
+	$('#generar').click(function(){
+		var url='{{ path('administracion_nuevo_cierre') }}?periodo=' + $('#calendario').val().replace("/","");
+		$(location).attr('href',url);
+		});
+	$('#nuevoCierre').click(function(){
+		$('#dialogo').dialog();
+		});
+	
+	</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+<div class="mws-panel grid_8">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-table-1">Lista de Resultados</span>
+                    </div>
+        <div class="mws-panel-body">
+    <table class="mws-datatable-fn mws-table" id="resultset">
+    <thead>
+        <tr>            
+            <th>Socio</th>
+            <th>Proveedor</th>
+            <th>Tipo de Emision</th>
+            <th>Fecha de Anulacion</th>
+            <th>Importe</th>
+            <th>Cuotas</th>
+            <th>Anul&oacute;</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            {#<td><a href="{{ path('administracion_entidades_localidad_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
+            <td>{{ entity.socio }}</td>
+            <td>{{ entity.proveedor }}</td>
+            <td>{{ entity.tipoEmision }}</td>
+            <td>{{ entity.fechaAnulacion | date('d/m/Y') }}</td>
+            <td>${{ entity.importe }}</td>
+            <td>{{ entity.cantidadCuotas }}</td>
+            <td>{{ entity.usuarioAnulacion }}</td>
+            
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+                </div>
+        </div> 
+         </div> <div id="datos-adicionales" desde="{{ fecha_desde | date("d/m/Y") }}" hasta="{{ fecha_hasta | date("d/m/Y") }}" cantidad-compra="{{ cantidad_compra }}" cantidad-combustible="{{ cantidad_combustible }}" cantidad-prestamo="{{ cantidad_prestamo }}" cantidad-evento="{{ cantidad_evento }}" cantidad-pasaje="{{ cantidad_pasaje }}">
+        </div>

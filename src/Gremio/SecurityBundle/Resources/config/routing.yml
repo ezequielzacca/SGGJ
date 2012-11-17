@@ -1,0 +1,14 @@
+# app/config/routing.yml
+_security_login:
+    pattern:  /login
+    defaults: { _controller: GremioSecurityBundle:Security:login }
+
+_security_check:
+    pattern:  /login_check
+
+_security_logout:
+    pattern:  /logout
+    
+GremioSecurityBundle_Security_User:
+    resource: "@GremioSecurityBundle/Resources/config/routing/user.yml"
+    prefix: /security/user

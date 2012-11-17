@@ -1,0 +1,121 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+
+
+<div class="mws-panel grid_6">
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-sign-post">Alta de Evento</span>
+     </div>
+<div class="mws-panel-body">
+<form id="mws-wizard-form" class="mws-form" action="{{ path('administracion_entidades_evento_create') }}" method="post" {{ form_enctype(form) }}>
+    <div class="mws-wizard-nav clearfix">
+            <ul>
+                <li><a class="mws-ic-16 ic-database" href="#step-1">Datos</a></li>
+            </ul>
+        </div>    
+{#
+ <div id class="mws-form-row">
+            {{ form_label(form.Num_Documento) }}
+            {{ form_errors(form.Num_Documento) }}
+                <div class="mws-form-item large">     
+                    {{ form_widget(form.Num_Documento,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+            </div>
+#}
+
+        
+        <fieldset id="step-1" class="mws-form-inline">
+    {{ form_errors(form) }}
+                
+                
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.razon_social) }}
+                {{ form_errors(form.razon_social) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.razon_social,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.fecha_vencimiento) }}
+                {{ form_errors(form.fecha_vencimiento) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.fecha_vencimiento,{ 'attr' : { 'class' : 'fecha mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.cuit) }}
+                {{ form_errors(form.cuit) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.cuit,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.telefono) }}
+                {{ form_errors(form.telefono) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.telefono,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.domicilio) }}
+                {{ form_errors(form.domicilio) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.domicilio,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.email) }}
+                {{ form_errors(form.email) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.email,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                
+                
+                
+                
+                
+                {{ form_rest(form) }}
+            </fieldset> 
+                
+    
+</form>
+        </div>
+                </div>
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+        $.datepicker.setDefaults($.datepicker.regional[""]);
+	$(".fecha").datepicker($.datepicker.regional['es']);
+    
+</script>
+<script>
+        $("#mws-wizard-form").mwsWizard({
+        'submitButtonLabel' : 'Dar de Alta',
+        'forwardOnly' : false,
+        'nextButtonLabel' : 'Siguiente',
+        'prevButtonLabel' : 'Atras',
+        'nextButtonClass' : 'mws-button blue',
+        onLeaveStep: function(index, elem) {
+				return v.form();
+			}, 
+			onBeforeSubmit: function() {
+				return v.form();
+			}
+    });
+    var v = $("#mws-wizard-form").validate({ onsubmit: false });
+    $("#mws-ui-button-radio, #mws-ui-button-cb").buttonset();
+    
+    
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+<div class="mws-panel grid_8">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-table-1">Lista de Cajeros</span>
+                    </div>
+                    <div class="mws-panel-body">
+                            <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                            	<li><a href="{{ path('administracion_entidades_cajero_new') }}" class="mws-ic-16 ic-add">Alta de Cajero</a></li>
+                            	
+                            </ul>
+                        </div>
+                            <div>
+                {% if app.session.hasFlash('succes') %}
+
+                    <div class="mws-form-message success">
+                        {{ app.session.flash('succes') }}
+                    </div>
+                {% endif %}
+            </div>
+<table class="mws-datatable-fn mws-table">
+    <thead>
+        <tr>
+            {# <th>Id</th> #}
+            <th>Apellido</th>
+            <th>Nombres</th>
+            <th>Numero de Documento</th>
+			<th>Proveedor</th>
+            <th>Email</th>     
+            <th>Fecha de Baja</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr href="{{ url('administracion_entidades_cajero_show', { 'id': entity.id }) }}" class="dbclickeable">
+            {# <td><a href="{{ path('administracion_entidades_cajero_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td> #}
+            <td>{{ entity.apellido }}</td>
+            <td>{{ entity.nombres }}</td>
+            <td>{{ entity.numerodocumento }}</td>
+			<td>{{ entity.proveedor }}</td> 
+            <td>{{ entity.email }}</td>  
+            <td>{{ entity.fechaBaja is empty ? "" : entity.fechaBaja | date("d/m/y") }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+             </div>
+                </div>
+
+    
+{% endblock %}

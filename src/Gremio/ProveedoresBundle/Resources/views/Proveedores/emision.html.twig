@@ -1,0 +1,98 @@
+
+
+
+{% if emision %}
+<div class="mws-panel grid_6">
+    <div class="mws-panel-header">
+        <span class="mws-i-24 i-sign-post">Emision</span>
+    </div>
+    <div class="mws-panel-body">
+        
+        <table class="mws-table">
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td>Socio : {{ emision.socio }}</td>
+                    </tr>
+                    <tr>
+                    <td>importe : {{ emision.importe }}</td>
+                    </tr>
+                    
+            </tbody>
+        </table>
+
+        
+                    <form class="mws-form" action="{{ path('autorizar_emision', { 'id' : emision.id }) }}" method="post" {{ form_enctype(form) }}>
+
+{#
+ <div id class="mws-form-row">
+            {{ form_label(form.Num_Documento) }}
+            {{ form_errors(form.Num_Documento) }}
+                <div class="mws-form-item large">     
+                    {{ form_widget(form.Num_Documento,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+            </div>
+#}
+
+
+                        <fieldset id="step-1" class="mws-form-inline">
+    {{ form_errors(form) }}
+
+                              {{ form_widget(form.id) }}
+                                
+                                <div id class="mws-form-row">
+                                    {{form_label(form.importe)}}
+                                        
+         <div class="mws-form-item large">   
+             {{form_widget(form.importe,{ 'attr' : {  'class' : 'mws-textinput'  } } )}}
+         
+         </div>   
+         </div>
+                                
+                                <div id class="mws-form-row">
+                                    {{form_label(form.cantidad_cuotas)}}
+                                        
+         <div class="mws-form-item large">   
+             {{form_widget(form.cantidad_cuotas,{ 'attr' : {  'class' : 'mws-textinput'  } } )}}
+         
+         </div>   
+         </div>
+                                
+                                
+
+                {{ form_rest(form) }}
+                                    </fieldset> 
+                        
+
+         <div id class="mws-form-row">
+         <div class="mws-form-item large">   
+         <input type="submit" class="mws-button green" value="Autorizar">
+         </div>   
+         </div>
+    
+                                </form>
+                            </div>
+                        </div>
+{% else %}
+
+<div> 
+                {% if app.session.hasFlash('succes') %}
+
+                <div class="mws-form-message inanimado success" >
+                        {{ app.session.flash('succes') }}
+                    </div>
+                {% endif %}
+            {% if app.session.hasFlash('error') %}
+<div class="mws-panel grid_6">
+    <div class="mws-panel-body">
+                    <div class="mws-form-message inanimado error" style="font-size: 200%">
+                        
+                        
+                        {{ app.session.flash('error') }}
+                           
+                        </div>
+            </div>
+        </div>
+                {% endif %}
+                    </div>
+{% endif %}

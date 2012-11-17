@@ -1,0 +1,52 @@
+{% extends '::listas.html.twig' %}
+{% block body %}
+
+
+
+
+
+<table class="busqueda">
+    <thead>
+        <tr>
+            <th>Id</th>    
+            <th>Legajo</th>
+            <th>Reparticion</th>
+            <th>Num_documento</th>
+            <th>Apellido</th>
+            <th>Nombres</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    {% for entity in entities %}
+        <tr>
+            <td><a href="#" class="retorna" data-id="{{ entity.Id }}">Seleccionar</a></td>
+            <td>{{ entity.Legajo }}</td>
+            <td>{{ entity.reparticion }}</td>
+            <td>{{ entity.NumDocumento }}</td>
+            <td>{{ entity.Apellido }}</td>
+            <td>{{ entity.Nombres }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+    $(".retorna").click(function(e) {
+  e.preventDefault();
+  var value;
+
+     value = $(".retorna").data("id");
+     parent.$('.codigo').attr('value', value);
+     parent.$.fancybox.close();
+  });
+
+
+
+    
+    
+</script>
+{% endblock %}

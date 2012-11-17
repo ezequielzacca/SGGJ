@@ -1,0 +1,99 @@
+imports:
+    - { resource: parameters.ini }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    charset:         UTF-8
+    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    session:
+        default_locale: %locale%
+        auto_start:     true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+        appname: %sistema_nombre%
+        appdescripcion: %sistema_descripcion%
+        appempresa: %desarrollador%
+        default_password: %default_password%
+      
+        
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    # java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        # closure:
+        #     jar: %kernel.root_dir%/java/compiler.jar
+        # yui_css:
+        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    
+##Este es el servicio que se encarga de registrar los movimientos que realizan los Usuarios    
+services:
+  my.listener:
+        class: Gremio\DefaultBundle\Listener\AuditoriaListener
+        tags:
+        #    - { name: doctrine.event_listener, event: postUpdate, method: postUpdate }
+            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+            
+  my_util:
+        class: Gremio\DefaultBundle\Utils\Util
+        arguments: [@doctrine]
+            
+  twig.extension.gremio:
+        class: Gremio\DefaultBundle\Twig\Extension\GremioExtension
+        tags:
+            - { name: twig.extension }
+  
+  login_listener:
+      class: Gremio\SociosBundle\Listener\LoginListener
+      arguments: [@security.context, @router]
+      tags:
+          - { name: kernel.event_listener, event: security.interactive_login }
+          - { name: kernel.event_listener, event: kernel.response }
+ps_pdf:
+    nodes_file: ~
+    fonts_file: ~
+    complex_attributes_file: ~
+    colors_file: ~
+    use_cache_in_stylesheet: ~
+    cache:
+      type: ~
+      options: ~
+    markdown_stylesheet_filepath: ~
+    markdown_document_template_filepath: ~
+    document_parser_type: ~

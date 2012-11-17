@@ -1,0 +1,51 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+<div class="mws-panel grid_4">
+                    
+    <div class="mws-panel-header">
+                    	<span>Datos de la Seccion</span>
+                    </div>
+    <div class="mws-panel-body">
+        <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                                <li><a href="{{ path('administracion_entidades_seccion') }}" class="mws-ic-16 ic-arrow-left">Volver a la Lista</a></li>
+                            	<li><a href="{{ path('administracion_entidades_seccion_edit', { 'id': entity.id }) }}" class="mws-ic-16 ic-pencil">Editar</a></li>                            	
+                            </ul>
+                        </div>
+        <div class="mws-panel-content">
+
+<table class="mws-table">
+    <tbody>
+        {#
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        #}
+        <tr>
+            <th>Descripcion</th>
+            <td>{{ entity.Descripcion }}</td>
+        </tr>
+        <tr>
+            <th>Domicilio</th>
+            <td>{{ entity.Domicilio }}</td>
+        </tr>
+        <tr>
+            <th>Telefono</th>
+            <td>{{ entity.Telefono }}</td>
+        </tr>
+        <tr>
+            <th>Localidad</th>
+            <td>{{ entity.Localidad }}</td>
+        </tr>
+    </tbody>
+</table>
+            </div>
+            </div>
+    </div>
+                          
+                </div>
+    
+        
+   
+{% endblock %}

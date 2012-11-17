@@ -1,0 +1,305 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+
+
+<div class="mws-panel grid_6">
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-sign-post">Editar Socio</span>
+     </div>
+        
+<div class="mws-panel-body">
+    <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                            	<li><a href="{{ path('socio') }}" class="mws-ic-16 ic-arrow-left">Volver a la Lista</a></li>
+                            	<li><a href="#" id="linkborra" class="mws-ic-16 ic-trash">
+                                        {% if entity.fechaBaja %}
+                                        Quitar Baja
+                                        {% else %}
+                                        Dar de Baja
+                                        {%endif%}
+                                    </a></li>                            	
+                            </ul>
+                        </div>
+    
+<form id="mws-wizard-form" class="mws-form" action="{{ path('socio_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+ <div class="mws-wizard-nav clearfix">
+            <ul>
+                <li><a class="mws-ic-16 ic-user" href="#step-1">Datos Personales</a></li>
+                <li><a class="mws-ic-16 ic-delivery" href="#step-2">Datos Laborales</a></li>
+            </ul>
+        </div>
+        <div>
+        {% if app.session.hasFlash('error') %}
+            
+            <div class="mws-form-message error">
+                {{ app.session.flash('error') }}
+            </div>
+         {% endif %}
+</div>
+
+        
+        <fieldset id="step-1" class="mws-form-inline">
+            
+                
+         
+            <div id class="mws-form-row">
+            {{ form_label(form.Num_Documento) }}
+            {{ form_errors(form.Num_Documento) }}
+                <div class="mws-form-item large">     
+                    {{ form_widget(form.Num_Documento,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+            </div>
+
+            <div id class="mws-form-row">
+	{{ form_label(form.Apellido) }}
+	{{ form_errors(form.Apellido) }}
+                    <div class="mws-form-item large"> 
+	{{ form_widget(form.Apellido,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                             </div>   
+            </div>
+
+ 
+            <div id class="mws-form-row">
+	{{ form_label(form.Nombres) }}
+	{{ form_errors(form.Nombres) }}
+                     <div class="mws-form-item large"> 
+	{{ form_widget(form.Nombres,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                                         </div>   
+            </div>
+  <div id class="mws-form-row">
+	{{ form_label(form.sexo) }}
+	{{ form_errors(form.sexo) }}
+                <div class="mws-form-item large"> 
+	{{ form_widget(form.sexo,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>
+                 </div>
+            <div id class="mws-form-row">
+	{{ form_label(form.Cuit) }}
+	{{ form_errors(form.Cuit) }}
+                    <div class="mws-form-item large">    
+	{{ form_widget(form.Cuit,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                    </div>   
+            </div>
+
+   <div id class="mws-form-row">
+	{{ form_label(form.Domicilio_Particular) }}
+	{{ form_errors(form.Domicilio_Particular) }}
+                <div class="mws-form-item large"> 
+	{{ form_widget(form.Domicilio_Particular,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>
+                 </div>
+        <div id class="mws-form-row">
+	{{ form_label(form.Telefono_Particular) }}
+	{{ form_errors(form.Telefono_Particular) }}
+                <div class="mws-form-item large"> 
+	{{ form_widget(form.Telefono_Particular,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>
+                 </div>
+             <div id class="mws-form-row">
+	{{ form_label(form.Email) }}
+	{{ form_errors(form.Email) }}
+                        <div class="mws-form-item large">
+	{{ form_widget(form.Email,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                        </div>
+                     </div>
+
+                <div id class="mws-form-row">
+	{{ form_label(form.Fecha_Nacimiento) }}
+	{{ form_errors(form.Fecha_Nacimiento) }}
+                        <div class="mws-form-item large"> 
+	{{ form_widget(form.Fecha_Nacimiento,{ 'attr' : { 'class' : 'fecha mws-textinput' }}) }}
+        </div>
+                         </div>
+	
+        <div id class="mws-form-row">
+	{{ form_label(form.localidad) }}
+	{{ form_errors(form.localidad) }}
+        {# Se añade la busqueda por localidad #}
+                <div class="mws-form-item large"> 
+	{{ form_widget(form.localidad,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+        </div>
+                 </div>
+                
+                <div id class="mws-form-row">
+	{{ form_label(form.tipo_socio) }}
+	{{ form_errors(form.tipo_socio) }}
+                <div class="mws-form-item large"> 
+	{{ form_widget(form.tipo_socio,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>
+                 </div>
+        
+        
+
+        </fieldset>
+	<fieldset id="step-2" class="mws-form-inline">
+            <div id class="mws-form-row">
+                {{ form_errors(form) }}
+                {{ form_label(form.Legajo) }}
+                {{ form_errors(form.Legajo) }}
+                 <div class="mws-form-item large">
+                     {{ form_widget(form.Legajo,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                 </div>
+            </div>
+            <div id class="mws-form-row">
+	{{ form_label(form.Domicilio_Laboral) }}
+	{{ form_errors(form.Domicilio_Laboral) }}
+                    <div class="mws-form-item large"> 
+	{{ form_widget(form.Domicilio_Laboral,{ 'attr' : { 'class' : 'd mws-textinput' }}) }}
+                    </div>
+                     </div>
+            <div id class="mws-form-row">
+	{{ form_label(form.Telefono_Laboral) }}
+	{{ form_errors(form.Telefono_Laboral) }}
+                    <div class="mws-form-item large"> 
+	{{ form_widget(form.Telefono_Laboral,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                    </div>
+                     </div>
+            <div id class="mws-form-row">
+	{{ form_label(form.Numero_Mesa) }}
+	{{ form_errors(form.Numero_Mesa) }}
+                    <div class="mws-form-item large"> 
+	{{ form_widget(form.Numero_Mesa,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                    </div>
+                     </div>
+            <div id class="mws-form-row">
+	{{ form_label(form.Ingreso_Justicia) }}
+	{{ form_errors(form.Ingreso_Justicia) }}
+                    <div class="mws-form-item large"> 
+	{{ form_widget(form.Ingreso_Justicia,{ 'attr' : { 'class' : 'fecha mws-textinput' }}) }}
+        </div>
+                     </div>
+        <div id class="mws-form-row">
+	{{ form_label(form.Cbu) }}
+	{{ form_errors(form.Cbu) }}
+                <div class="mws-form-item large"> 
+	{{ form_widget(form.Cbu ,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>
+                 </div>
+        
+            <div id class="mws-form-row">
+                    {{ form_label(form.reparticion) }}
+                    {{ form_errors(form.reparticion) }}
+                <div class="mws-form-item large"> 
+                    {{ form_widget(form.reparticion,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>
+                    </div>
+                
+                <div id class="mws-form-row">
+                    {{ form_label(form.seccion) }}
+                    {{ form_errors(form.seccion) }}
+                <div class="mws-form-item large"> 
+                    {{ form_widget(form.seccion,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>
+                 </div>
+               
+                
+                 <div id class="mws-form-row">
+                    {{ form_label(form.margen) }}
+                    {{ form_errors(form.margen) }}
+                <div class="mws-form-item large"> 
+                    {{ form_widget(form.margen,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>
+                 </div>
+                
+                 
+        
+	
+	{{ form_rest(form) }}
+        
+
+    </fieldset>
+        
+</form>
+        
+ </div>
+                </div>
+
+
+
+    
+<form title="Procesar {% if entity.fechaBaja %}
+                Alta
+                {% else %}
+                Baja
+                {% endif %}" class="mws-form" hidden="hidden" action="{{ path('socio_delete', { 'id': entity.id }) }}" id="formulario" method="post">
+    <div id class="mws-form-row">
+    <label>Fecha de {% if entity.fechaBaja %}
+                Alta
+                {% else %}
+                Baja
+                {% endif %}
+    </label>{{ form_widget(delete_form.fecha_baja, { 'attr' : { 'class' : 'fecha mws-textinput' }}) }}
+    </div>
+    
+        </form>
+		
+<div  title="Borrar Socio">
+    
+
+</div>
+    
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+	
+    $("#formulario").dialog({
+      modal: true,
+      autoOpen: false,
+      width: 500,
+      height: 200,
+      buttons:  {
+        "Confirmar" : function() {
+          $("#formulario").submit();
+        },
+        "Cancelar" : function() {
+          $(this).dialog("close");
+        }
+      }
+
+      });
+
+
+    $("#linkborra").click(function(e) {
+        
+        
+
+        e.preventDefault();
+
+        
+
+       $("#formulario").dialog("open");
+
+    });
+    
+    $("#borrasociocierra").click(function(){
+        e.preventDefault();
+        $("#formulario").dialog("close");
+
+});
+
+	</script>
+        
+
+<script>
+        $("#mws-wizard-form").mwsWizard({
+        'submitButtonLabel' : 'Guardar Cambios',
+        'forwardOnly' : false,
+        'nextButtonLabel' : 'Siguiente',
+        'prevButtonLabel' : 'Atras',
+        'nextButtonClass' : 'mws-button blue',
+        onLeaveStep: function(index, elem) {
+				return v.form();
+			}, 
+			onBeforeSubmit: function() {
+				return v.form();
+			}
+    });
+    var v = $("#mws-wizard-form").validate({ onsubmit: false });
+    
+    
+</script>
+	
+
+{% endblock%}

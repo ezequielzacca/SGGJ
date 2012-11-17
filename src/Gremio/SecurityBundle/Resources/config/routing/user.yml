@@ -1,0 +1,30 @@
+Security_User:
+    pattern:  /
+    defaults: { _controller: "GremioSecurityBundle:User:index" }
+
+Security_User_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "GremioSecurityBundle:User:show" }
+
+Security_User_new:
+    pattern:  /new
+    defaults: { _controller: "GremioSecurityBundle:User:new" }
+
+Security_User_create:
+    pattern:  /create
+    defaults: { _controller: "GremioSecurityBundle:User:create" }
+    requirements: { _method: post }
+
+Security_User_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "GremioSecurityBundle:User:edit" }
+
+Security_User_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "GremioSecurityBundle:User:update" }
+    requirements: { _method: post }
+
+Security_User_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "GremioSecurityBundle:User:delete" }
+    requirements: { _method: post }

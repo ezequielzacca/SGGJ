@@ -1,0 +1,76 @@
+<pdf>
+    <dynamic-page encoding="UTF-8" font-type="DejaVuSans">
+        <p text-align="right">Salta, {{ "now" | date('d/m/Y') }}</p>
+        <p font-style="bold" padding="0px 0px 0px 0px" text-align="justify" width="250px">Agremiación de Empleados del Poder Judicial y Ministerio Público de la Provincia de Salta</p>
+        <p font-size="10px" padding="0px 0px 0px 0px" text-align="justify" width="250px">25 de Mayo 573 - Tel 4215769-4224607</p>
+        <p font-size="9px" padding="0px 0px 0px 0px" text-align="justify" width="250px">e-mail ajuprosal@hotmail.com</p>
+
+
+        {% if emision.tipoEmision=="Vale de Compras" %}
+        <h1 text-align="center">ORDEN DE COMPRA</h1>
+        {% elseif emision.tipoEmision=="Vale de Combustible" %}
+        <h1 text-align="center">VALE DE NAFTA</h1>
+        {% elseif emision.tipoEmision=="Orden de Pasajes" %}
+        <h1 text-align="center">ORDEN DE PASAJES</h1>
+        {% elseif emision.tipoEmision=="Prestamo" %}
+        <h1 text-align="center">ORDEN DE PRESTAMO</h1>
+
+        {% endif %}
+
+
+        <p text-align="right">N°  {{ emision.id }}</p>
+
+        {% if emision.tipoEmision=="Vale de Compras" or emision.tipoEmision=="Vale de Combustible" %}
+
+        <p>Por la presente autorizamos a {{ emision.proveedor }} a entregar 
+           {% if emision.tipoEmision=="Vale de Compras" %}
+                mercaderia
+           {% elseif emision.tipoEmision=="Vale de Combustible" %}
+                combustible
+           {% endif %}
+                a nuesto afiliado/a 
+        {{ emision.socio.getcompletename }} Legajo N° {{ emision.socio.legajo }} por la suma de ${{ completar_decimales(emision.importe) }} la cual 
+                sera descontada por esta asociacion de acuerdo al convenio en vigencia</p>
+
+            <p>Son Pesos {{ letras(emision.importe) | upper }}</p>
+            {% if emision.tipoEmision=="Vale de Combustible" %}
+            <p>Tipo de Combustible: <strong font-style="bold">{{ emision.tipoCombustible }}</strong></p>
+            {% endif %}
+
+            {% elseif emision.tipoEmision=="Orden de Pasajes" %}
+            <p>Empresa: {{ emision.proveedor | title }}</p>
+            <p>Afiliado: {{ emision.socio | title }} - Legajo N° {{ emision.socio.legajo }} - DNI: {{ emision.socio.numDocumento }} </p>
+            <p>Tipo de Viaje: {{ emision.tipoViaje }}</p>
+            <p>Cantidad de Pasajeros: {{ emision.cantidadPasajeros }}</p>
+            <p margin="20px 0px 0px 0px">Importe: {{ completar_decimales(emision.importe) }} - En letras: PESOS {{ letras(emision.importe) | upper }}</p>
+            {% endif %}
+            {% if emision.tipoEmision=="Vale de Compras" or emision.tipoEmision=="Vale de Combustible" %}
+            <p font-style="bold" text-align="center">Esta agremiacion no se hace responsable por el extravio, sustraccion y/o transferencia de esta
+                Orden de Compra.</p>
+            {% elseif emision.tipoEmision=="Orden de Pasajes" %}
+            <p margin="0px 15px 15px 0px" font-style="bold" text-align="center">Nota: No incluye exceso de equipajes y carga, el que debera abonarse por separado.</p>
+            {% endif %}
+
+
+
+            <p text-decoration="overline">Firma del Asociado</p>
+
+
+            <barcode type="code128" code="{{ completar_ceros(emision.id,6) ~ 
+                                             completar_ceros(emision.socio.legajo,6) ~ 
+                                             completar_ceros((emision.fechaEmision | date("Ymd")),6) ~ 
+                                             completar_ceros(emision.proveedor.id,4) ~ 
+                                             completar_ceros(emision.tipoEmision.id,2) }}" />
+
+
+
+                     <p text-align="center" margin="15px 15px 15px 15px">-----------------------------------------------------------------------------------------------------</p>
+
+
+
+
+
+
+
+            </dynamic-page>
+        </pdf>

@@ -1,0 +1,58 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+
+<div class="mws-panel grid_6">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-table-1">Lista de Secciones</span>
+                    </div>
+                    <div class="mws-panel-body">
+                        <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                            	<li><a href="{{ path('administracion_entidades_seccion_new') }}" class="mws-ic-16 ic-add">Alta de Seccion</a></li>
+                            	
+                            </ul>
+                        </div>
+                            <div>
+                {% if app.session.hasFlash('succes') %}
+
+                    <div class="mws-form-message success">
+                        {{ app.session.flash('succes') }}
+                    </div>
+                {% endif %}
+            </div>
+                            <div>
+                {% if app.session.hasFlash('succes') %}
+
+                    <div class="mws-form-message success">
+                        {{ app.session.flash('succes') }}
+                    </div>
+                {% endif %}
+            </div>
+<table class="mws-datatable-fn mws-table">
+    <thead>
+        <tr>
+            {# <th>Id</th> #}
+            <th>Descripcion</th>
+            <th>Domicilio</th>
+            <th>Telefono</th>
+
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr href="{{ url('administracion_entidades_seccion_show', { 'id': entity.id }) }}" class="dbclickeable">
+            {# <td><a href="{{ path('administracion_entidades_seccion_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td> #}
+            <td>{{ entity.Descripcion }}</td>
+            <td>{{ entity.Domicilio }}</td>
+            <td>{{ entity.Telefono }}</td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+
+
+{% endblock %}
+   

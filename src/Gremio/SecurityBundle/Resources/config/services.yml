@@ -1,0 +1,7 @@
+parameters:
+#    gremio_security.example.class: Gremio\SecurityBundle\Example
+
+services:
+#    gremio_security.example:
+#        class: %gremio_security.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

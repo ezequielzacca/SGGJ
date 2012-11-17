@@ -1,0 +1,65 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block html %}
+<body>
+    <div class="mws-panel grid_8">
+        <div class="mws-panel-header">
+            <span class="mws-i-24 i-table-1">Lista de Proveedores</span>
+        </div>
+
+
+        <table class="mws-datatable-fn mws-table">
+            <thead>
+                <tr>
+            {# <th>Id</th> #}
+                        <th>Nombre</th>
+                        <th>Cuit</th>
+                        <th>Telefono</th>
+                        <th>Domicilio</th>
+                        
+           {# <th>Actions</th> #}
+                    </tr>
+                </thead>
+                <tbody>
+    {% for entity in entities %}
+                        <tr class="clickeable" datavalue="{{ entity.id }}" datatext="{{ entity.razonsocial }}">
+            {# <td><a href="{{ path('administracion_entidades_proveedor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td> #}
+
+                                <td>{{ entity.razonsocial }}</td>
+                                <td>{{ entity.cuit }}</td>
+                                <td>{{ entity.telefono }}</td>
+                                <td>{{ entity.domicilio }}</td>
+           {# <td>
+                
+                        <a class="button medium blue" href="{{ path('administracion_entidades_proveedor_show', { 'id': entity.id }) }}">Ver Datos</a>
+                   
+                        <a class="button medium blue" href="{{ path('administracion_entidades_proveedor_edit', { 'id': entity.id }) }}">Editar</a>
+                   
+            </td> #}
+                            </tr>
+    {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            
+                </body> 
+                <script type="text/javascript">
+                $(".clickeable").click(function(){
+                    var id = $(this).attr('datavalue');
+                    var text = $(this).attr('datatext');
+                    //parent.$.(".proveedorId").val(id);
+                    parent.$('.eventoId').attr('value', id);
+                    parent.$('.eventoDesc').attr('value', text);
+                    parent.$.fancybox.close();
+                });
+                </script>
+                <script>
+                        $(document).ready(function(){
+                        $(".mws-datatable").dataTable();
+                            
+                            });
+                    </script>
+
+{% endblock %}

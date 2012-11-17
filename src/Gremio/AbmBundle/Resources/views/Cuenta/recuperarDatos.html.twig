@@ -1,0 +1,82 @@
+{% extends "GremioSecurityBundle::layout.html.twig" %}
+
+{% block cssjs %}
+{{ parent() }}
+
+{% endblock %}
+
+{% block html %}
+    <body>
+        <div id="mws-wrapper">
+            <div id="mws-container" class="clearfix">
+                <div class="container">
+         <div class="mws-panel grid_6">              
+    <div class="mws-panel-header">
+        <span class="mws-i-24 i-lock-locked">Recuperar Datos</span>
+                    </div>
+    <div class="mws-panel-body">
+
+<form action="{{ path('recuperar_datos') }}" method="post"class="mws-form" >
+    
+    <div  class="mws-form-row">
+        <label>E-Mail</label>
+        
+    <div class="mws-form-item small">  
+    <input type="email" required="required" name="email" id="email" class="mws-textinput"><image src="{{ asset("images/loading.gif") }}" hidden="true" id="loading"/>
+    </div>
+        </div>
+    <div  class="mws-form-row">
+        <div class="mws-form-item medium">
+        <button id="enviarecuperacion" class="mws-button medium green" type="submit">Solicitar Datos</button>
+        </div>
+        </div>
+    
+</form>
+<div id="destino" hidden="hiden"></div>
+    </div>
+             </div>
+
+
+    
+
+
+<script type="text/javascript">
+
+$(document).ajaxStart(function(){ 
+        $('#loading').show(); 
+    });
+  $(document).ajaxStop(function(){ 
+        $('#loading').hide();
+        $( "#destino" ).dialog({
+			modal: true,
+			buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+    });
+
+
+$(document).ready(function(){
+   $("#enviarecuperacion").click(function(evento){
+      evento.preventDefault();
+      var email= $("#email").val();
+      $("#destino").load("{{ path('recuperar_datos') }}", {email: email },function(response, status, xhr) {
+  if (status == "error") {
+    var msg = "<p>La direccion de Correo Ingresada no corresponde a ningun Usuario</p>";
+    $("#destino").html(msg);
+  }
+});
+
+   });
+}); 
+
+
+</script>
+</div>
+                    </div>
+                </div>
+</body>
+
+{% endblock %}

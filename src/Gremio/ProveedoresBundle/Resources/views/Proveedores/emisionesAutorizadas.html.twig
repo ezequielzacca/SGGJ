@@ -1,0 +1,63 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+{% if emisiones %} 
+<div class="mws-panel grid_4 mws-collapsible" id="ultimasEmisiones">
+     <div class="mws-panel-header">
+     <span class="mws-i-24 i-table-1">Ultimas Emisiones Autorizadas</span>
+     </div>
+     <div class="mws-panel-body">
+         <table class="mws-table">
+             <thead>
+                 <tr>
+            {# <th>Id</th> #}
+                         <th>Tipo de Emision</th>
+                         <th>Socio</th>
+                         <th>Importe</th>
+                         <th>Operaciones</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+    {% if app.session.hasFlash('info') %}
+                         <tr>
+                     <div class="mws-form-message success" >
+    {{ app.session.flash('info') }}
+
+                         </div>
+                    {% if app.session.hasFlash('error') %}
+                         <tr>
+                         <div class="mws-form-message error" >
+    {{ app.session.flash('error') }}
+
+                             </div>
+                             </tr>
+{% endif %}
+                        {% endif %}
+{% for emision in emisiones %}
+
+                             <tr>
+                                 <td>{{emision.tipoEmision}}</td>
+                                 <td>{{ emision.socio }}</td>
+                                 <td>${{ emision.importe }}</td>
+                                 
+                                 <td>
+                                     <a class="imprimible"  href="{{ path('imprimir_comprobante',{ 'id': emision.id}) }}?_format=pdf">
+                                         <img src="{{ asset('css/icons/32/printer.png') }}" />
+                                     </a>                                     
+                                 </td>
+                                
+                             </tr>
+
+{% endfor %}
+                             </tbody>
+                         </table>
+                     </div>
+{% if app.session.hasFlash('info') or  app.session.hasFlash('error') %}
+                     <script type="text/javascript">
+                         $("#ultimasEmisiones").removeClass("mws-collapsed");
+                         </script>
+        {% endif %}
+                     </div>
+
+
+{% endif %}
+{% endblock %}

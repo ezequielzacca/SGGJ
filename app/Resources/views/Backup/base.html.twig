@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
+        <title>{% block title %}Gremio Judiciales{% endblock %}</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% block stylesheets %}
+            <link href='http://fonts.googleapis.com/css?family=Holtwood+One+SC' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+			<link href='http://fonts.googleapis.com/css?family=Graduate' rel='stylesheet' type='text/css'>
+            <link href="{{ asset('css/screen.css') }}" type="text/css" rel="stylesheet" />
+			<link type="text/css" href="{{ asset('css/jquery-ui-1.8.19.custom.css') }}" rel="Stylesheet" />   
+			<script type="text/javascript" src="{{ asset('js/jquery-1.7.1.min.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/jquery-ui-1.8.19.custom.min.js') }}"></script>
+                        
+<!-- Add mousewheel plugin (this is optional) -->
+<script type="text/javascript" src="{{ asset('fancybox/lib/jquery.mousewheel-3.0.6.pack.js') }}"></script>
+
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="{{ asset('/fancybox/source/jquery.fancybox.css?v=2.0.6') }}" type="text/css" media="screen" />
+<script type="text/javascript" src="{{ asset('/fancybox/source/jquery.fancybox.pack.js?v=2.0.6') }}"></script>
+
+<!-- Optionally add helpers - button, thumbnail and/or media -->
+<link rel="stylesheet" href="{{ asset('/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.2') }}" type="text/css" media="screen" />
+<script type="text/javascript" src="{{ asset('/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.2') }}"></script>
+<script type="text/javascript" src="{{ asset('/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.0') }}"></script>
+
+<link rel="stylesheet" href="{{ asset('/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=2.0.6') }}" type="text/css" media="screen" />
+<script type="text/javascript" src="{{ asset('/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=2.0.6') }}"></script>
+                        
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('judiciales.ico') }}" />
+    </head>
+    <body>
+
+        <section id="wrapper">
+       {% if false==busquedas is defined %}
+           
+            <header id="header">
+                <div class="top">
+                    {% block navigation %}
+                        <nav>
+                            <ul class="navigation">
+                                <li><a href="#">Acerca de</a></li>
+                                <li><a href="#">Contacto</a></li>
+                                
+                                    
+
+                            </ul>
+                        </nav>
+                    {% endblock %}
+                </div>
+
+                <hgroup>
+                    <h2>{% block blog_title %}<a href="#">{{ appname }}</a>{% endblock %}</h2>
+                    <h3>{% block blog_tagline %}<a href="#">{{ appdescripcion }}</a>{% endblock %}</h3>
+                    
+                  {% include "::menu.html.twig" %}
+                </hgroup>
+            </header>
+                {% endif %}
+            <section class="main-col">
+                {% block body %}{% endblock %}
+            </section>
+            
+            <div id="footer">
+                {% block footer %}
+                    Creado por <a>{{ appempresa }}</a>
+                {% endblock %}
+            </div>
+        </section>
+
+        {% block javascripts %}
+		<script>
+		$(function() {
+		$( ".fecha" ).datepicker({
+		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+		monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']});
+	});
+        
+        
+		</script>
+		{% endblock %}
+    </body>
+</html>

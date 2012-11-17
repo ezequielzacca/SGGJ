@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
+              <title>{% block title %}Gremio Judiciales{% endblock %}</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <!-- Apple iOS and Android stuff (do not remove) -->
+        <meta name="apple-mobile-web-app-capable" content="no" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1" />
+{% block cssjs %}
+        <!-- Required Stylesheets -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/reset.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/text.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/fonts/ptsans/stylesheet.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/fluid.css') }}" media="screen" />
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/mws.style.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/icons/16x16.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/icons/24x24.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/icons/32x32.css') }}" media="screen" />
+
+        <!-- Demo and Plugin Stylesheets -->
+
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/colorpicker/colorpicker.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/imgareaselect/css/imgareaselect-default.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/fullcalendar/fullcalendar.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/fullcalendar/fullcalendar.print.css') }}" media="print" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/chosen/chosen.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/prettyphoto/css/prettyPhoto.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/tipsy/tipsy.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/sourcerer/Sourcerer-1.2.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/jgrowl/jquery.jgrowl.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/spinner/ui.spinner.css') }}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('jui/css/jquery.ui.all.css') }}" media="screen" />
+
+        <!-- Theme Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/mws.theme.css') }}" media="screen" />
+
+        <!-- JavaScript Plugins -->
+        <script type="text/javascript" src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.placeholder.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.fileinput.js') }}"></script>
+        
+        <!-- JQuery DSSLICK Plugin -->
+        <script type="text/javascript" src="{{ asset('js/jquery.ddslick.min.js') }}"></script>
+
+        <!-- jQuery-UI Dependent Scripts -->
+        <script type="text/javascript" src="{{ asset('jui/js/jquery-ui-1.8.20.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('jui/js/jquery.ui.timepicker.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('jui/js/jquery.ui.touch-punch.js') }}"></script>
+         <script type="text/javascript" src="{{ asset('jui/js/jquery-ui-1.8.20.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/spinner/ui.spinner.min.js') }}"></script>
+
+        <!-- Plugin Scripts -->
+        <script type="text/javascript" src="{{ asset('plugins/imgareaselect/jquery.imgareaselect.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/duallistbox/jquery.dualListBox-1.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/jgrowl/jquery.jgrowl-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/chosen/chosen.jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/prettyphoto/js/jquery.prettyPhoto.min.js') }}"></script>
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="{{ asset('plugins/flot/excanvas.min.js') }}"></script>
+        <![endif]-->
+        <script type="text/javascript" src="{{ asset('plugins/flot/jquery.flot.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/flot/jquery.flot.pie.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/flot/jquery.flot.stack.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/flot/jquery.flot.resize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/colorpicker/colorpicker-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/tipsy/jquery.tipsy-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/sourcerer/Sourcerer-1.2-min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/validate/jquery.validate-min.js') }}"></script>
+
+        <!-- Core Script -->
+        <script type="text/javascript" src="{{ asset('js/core/mws.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/core/mws.wizard.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.ui.datepicker-es.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.form.js') }}"></script>
+
+        <!-- FancyBox -->
+
+        <script type="text/javascript" src="{{ asset('plugins/fancybox/source/jquery.fancybox.pack.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/fancybox/source/jquery.fancybox.css') }}" media="screen" />
+
+
+{% endblock %}
+
+
+        <link rel="shortcut icon" href="{{ asset('judiciales.ico') }}" />
+    </head>
+    {% block html %}
+    <body>
+
+        <div id="mws-header" class="clearfix">
+            <!-- Logo Wrapper -->
+            <div id="mws-logo-container">
+                <div id="mws-logo-wrap">
+                <a href="{{ path('principal') }}">
+                    <img src="{{ asset('images/LOGO6.png') }}" alt="mws admin" />
+                    </a>
+                </div>
+            </div>
+
+            <!-- User Area Wrapper -->
+            <div id="mws-user-tools" class="clearfix">
+                <!-- User Notifications -->
+            {#<div id="mws-user-notif" class="mws-dropdown-menu">
+                <a href="#" class="mws-i-24 i-alert-2 mws-dropdown-trigger">
+                     Notificaciones
+                 </a>
+                 <span class="mws-dropdown-notif">0</span>
+                 <div class="mws-dropdown-box">
+                     <div class="mws-dropdown-content">
+                         <ul class="mws-notifications">
+                            <!-- Here Goes all the notifications -->
+                         </ul>
+                         <div class="mws-dropdown-viewall">
+                            <a href="#">Ver Todas</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>#}
+
+                <!-- User Messages -->
+             {#<div id="mws-user-message" class="mws-dropdown-menu">
+                 <a href="#" class="mws-i-24 i-message mws-dropdown-trigger">Mensajes</a>
+                 <span class="mws-dropdown-notif">0</span>
+                 <div class="mws-dropdown-box">
+                     <div class="mws-dropdown-content">
+                         <ul class="mws-messages">
+                             <!-- Here goes all the messages -->
+                          </ul>
+                         <div class="mws-dropdown-viewall">
+                             <a href="#">Ver Todos</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>#}
+
+                <!-- User Functions -->
+                <div id="mws-user-info" class="mws-inset">
+                    <div id="mws-user-photo">
+                        <img src={{ asset('css/icons/32/user_green.png') }} alt="User Photo" />
+                    </div>
+                    <div id="mws-user-functions">
+                        <div id="mws-username">
+                            Bienvenido, {{ app.user.completename }}!
+                        </div>
+                        <ul>
+                        {#<li><a href="#">Mi Perfil</a></li>#}
+                                <li><a href="{{ path('password') }}">Cambiar Contrase&ntilde;a</a></li>
+                                <li><a href="{{ path('_security_logout') }}">Cerrar Sesion</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End User Functions -->
+                </div>
+            </div>
+            <div id="mws-wrapper">
+                <!-- Necessary markup, do not remove -->
+                <div id="mws-sidebar-stitch"></div>
+                <div id="mws-sidebar-bg"></div>
+
+                <!-- Sidebar Wrapper -->
+                <div id="mws-sidebar">
+
+                    <!-- Search Box -->
+                    <div id="mws-searchbox" class="mws-inset"></div>
+
+                    <!-- Main Navigation -->
+                    <div id="mws-navigation">
+                        <ul>
+                        {% include "::menu.html.twig" %}
+
+                            </ul>
+                        </div>
+                        <!-- End Navigation -->
+
+                    </div>
+
+                    <!-- Container Wrapper -->
+                    <div id="mws-container" class="clearfix">
+
+                        <!-- Main Container -->
+                        <div class="container">
+                    {% block body %}
+                    {% endblock %}
+                            </div>
+                            <!-- End Main Container -->
+
+                            <!-- Footer -->
+                            <div id="mws-footer">
+                               - SGGJ. Powered by <a href="http://netsecom.com.ar/"  TARGET="_blank">{{ appempresa }}</a> -                            </div>
+                            <!-- End Footer -->
+                        </div>
+                        <!-- End Container Wrapper -->
+
+                    </div>
+                </body>
+        {% endblock %}
+    {% block javascripts %}
+                <script>
+                $(".mws-datatable").dataTable();$(".mws-datatable-fn").dataTable({sPaginationType:"full_numbers",oLanguage:{sLengthMenu:"Mostrar _MENU_ Registros por Pagina",sZeroRecords:"No se encontraro registros",sInfo:"Mostrando _START_ a _END_ de _TOTAL_ registros",sInfoEmpty:"Mostrando 0 a 0 de 0 registros",sInfoFiltered:"(filtrados de _MAX_ rgistros totales)"}});$(document).ready(function(){var b=navigator.userAgent.toLowerCase();var c=b.indexOf("android")>-1;var a=b.indexOf("ios")>-1;if(c|a){$(".dbclickeable").click(function(){var d=$(this).attr("href");$(window).attr("location",d)})}else{$(".dbclickeable").dblclick(function(){var d=$(this).attr("href");$(window).attr("location",d)})}});$(".listas").fancybox({openEffect:"elastic",openSpeed:450,closeEffect:"elastic",closeSpeed:450,type:"iframe"});$.datepicker.setDefaults($.datepicker.regional.es);$(".fecha").datepicker({changeMonth:true,changeYear:true,yearRange:"c-100:c+10"});$(".fecha-reportes").datepicker({changeMonth:true,changeYear:true,yearRange:"c-100:c+10",dateFormat:"dd/mm/yy"});$(".fecha-lotes").datepicker({changeMonth:true,changeYear:true,yearRange:"c-100:c+10",dateFormat:"mm/yy"});$(".fecha").attr("readonly",true);$(".fecha-reportes").attr("readonly",true);$("#mws-ui-button-radio, #mws-ui-button-cb").buttonset();$(".mws-form-message").not($(".inanimado")).hide();$(".mws-form-message").not($(".inanimado")).delay(500).slideToggle("slow");$(".mws-form-message").not($(".inanimado")).delay(15000).slideToggle("slow");$(document).ready(function(){var b=navigator.userAgent.toLowerCase();var c=b.indexOf("android")>-1;var a=b.indexOf("ios")>-1;if(c|a){}else{$(".imprimible").fancybox({openEffect:"elastic",openSpeed:450,closeEffect:"elastic",closeSpeed:450,type:"iframe"})}});$(".lista").fancybox({openEffect:"elastic",openSpeed:450,closeEffect:"elastic",closeSpeed:450,type:"iframe"});$(".importe").keypress(function(){$(this).val(function(a,b){return b.replace(",",".")})});$(".importe").blur(function(){var a=parseFloat(this.value);$(this).val(a.toFixed(2))});$(document).ready(function(){$.validator.addMethod("importe",function(b,a){return this.optional(a)||/^[0-9]+([,\.][0-9]*)?$/i.test(b)},"Debe ingresar un importe valido.");$(".mws-form").each(function(){$(this).validate({onkeyup:false})})});
+  </script>
+  
+  
+  
+    {% endblock %}
+</html>

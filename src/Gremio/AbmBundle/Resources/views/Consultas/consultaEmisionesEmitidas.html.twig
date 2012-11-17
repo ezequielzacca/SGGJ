@@ -1,0 +1,212 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block cssjs %}
+{{ parent() }}
+<script type="text/javascript" src="{{ asset('js/Highcharts/js/highcharts.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/Highcharts/js/modules/exporting.js') }}"></script>
+{% endblock %}
+{% block body %}
+<div class="mws-panel grid_4">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-table-1">Consulta de Emisiones Emitidas</span>
+                    </div>
+                    <div class="mws-panel-body">
+                        
+                        <form class="mws-form" id="form-consulta">
+                            <div class="mws-form-row">
+                Fecha Desde:
+                <div class="mws-form-item small">  
+                    <input type="text" id="fecha-desde" class="fecha-reportes mws-textinput">
+                </div>   
+                </div>
+                <div class="mws-form-row">
+                Fecha Hasta:
+                <div class="mws-form-item small">  
+                    <input type="text" id="fecha-hasta" class="fecha-reportes mws-textinput ">
+                </div>   
+                </div>
+                
+                <div class="mws-form-row">
+                Formato:
+                <div class="mws-form-item small">  
+                    <select id="seleccionaFormato">
+						<option value="tabla" data-imagesrc="{{ asset('css/icons/32/database_table.png') }}" data-description="Tabla de Consulta">TABLA</option>
+                    	<option value="pdf" data-imagesrc="{{ asset('css/icons/32/page_white_acrobat.png') }}" data-description="Rporte en PDF">PDF</option>
+                    </select>
+                    <input type="text" id="almacenaFormato" name="formato" hidden="hidden"/>
+                </div>
+                </div>
+                
+                
+                               
+                    <div class="mws-form-row">
+                <input type="submit" id="solicita-reporte" class="mws-button green medium" value="Enviar"> 
+                </div>
+                 
+                
+                        </form>
+                        
+                        
+
+</div>
+</div>
+<div class="mws-panel grid_6" id="cargando" hidden="hidden" style="text-align:center; margin-top: 20px;">
+    <div class="center">
+        <img src="{{ asset('images/ajax-loader.gif') }}">
+    </div>
+                    
+                        </div>
+<div id="insertaResultado">
+    
+                    
+                        </div>
+                        
+                        <div class="mws-panel grid_8" id="grafico" hidden="hidden">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-graph">Grafico de Emisiones Emitidas</span>
+                    </div>
+                    <div class="mws-panel-body" id="container">
+                    </div>
+                    </div>
+                    
+                        
+                        
+
+    
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+$(document).ready(function(){
+	var chart;
+	Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function(color) {
+	    return {
+	        radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+	        stops: [
+	            [0, color],
+	            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+	        ]
+	    };
+	});
+$(document).ajaxStart(function(){ 
+        $('#cargando').show(); 
+        $('#insertaResultado').hide(); 
+        $("#insertaResultado,#container").empty();
+        $("#grafico").hide();
+        if(chart!=null){ chart.destroy();}
+    });
+  $(document).ajaxStop(function(){ 
+	 
+        $('#cargando').hide();
+        $('#resultset').dataTable(
+                    {
+                        sPaginationType: "full_numbers", 
+                        "oLanguage": {
+                        "sLengthMenu": "Mostrar _MENU_ Registros por Pagina",
+                        "sZeroRecords": "No se encontraro registros",
+                        "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+                        "sInfoFiltered": "(filtrados de _MAX_ rgistros totales)"
+                    }
+                    }
+                );
+        $('#insertaResultado').show(); 
+        $('#grafico').show();
+        $('html, body').animate({scrollTop: 1200}, 600); 
+        
+    	var compra = $('#datos-adicionales').attr('cantidad-compra');
+    	var fechaDesde = $('#datos-adicionales').attr('desde');
+    	var fechaHasta = $('#datos-adicionales').attr('hasta');
+    	var pasaje = $('#datos-adicionales').attr('cantidad-pasaje');
+    	var combustible = $('#datos-adicionales').attr('cantidad-combustible');
+    	var prestamo = $('#datos-adicionales').attr('cantidad-prestamo');
+    	var evento = $('#datos-adicionales').attr('cantidad-evento');
+        
+     
+		
+         
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Emisiones emitidas por Tipo'
+                },
+                subtitle: {
+                    text: 'Desde el ' + fechaDesde + ' hasta el ' + fechaHasta
+                    },
+                tooltip: {
+            	    pointFormat: '{series.name}: <b>{point.percentage}%</b> Total: {point.y}',
+                	percentageDecimals: 2
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            formatter: function() {
+                            	return '<b>'+ this.point.name +'</b>: '+ Math.round(this.percentage*100)/100 +' %. Total: ' + this.y;
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Cantidad de Emisiones',
+                    data: [
+                        ['Orden de Pasajes',  parseFloat(pasaje)  ],
+                        ['Vale de Combustible',      parseFloat(combustible)],
+                        {
+                            name: 'Orden de Compra',
+                            y: parseFloat(compra),
+                            sliced: true,
+                            selected: true
+                        },
+                        ['Orden de Prestamo',    parseFloat(prestamo)],
+                        ['Eventos', parseFloat(evento)]
+                       
+                    ]
+                }]
+            });
+        });
+        
+    
+
+$('#seleccionaFormato').ddslick({
+	 onSelected: function(data){
+		 $('#almacenaFormato').val(data.selectedData.value);
+	 }
+});
+
+});
+$(document).ready(function(){
+   $("#solicita-reporte").click(function(evento){
+       
+      evento.preventDefault();
+     var fechadesde = $('#fecha-desde').val().replace("/","").replace("/","");
+     var fechahasta = $('#fecha-hasta').val().replace("/","").replace("/","");
+     var formato = $('#almacenaFormato').val();
+     if(formato=='tabla'){
+      $("#insertaResultado").load("{{ path('administracion_consultas_emisiones_emitidas_ayax') }}", {fechaDesde: fechadesde, fechaHasta: fechahasta },function(response, status, xhr) {
+  if (status == "error") {
+    var msg = "<p>Ha ocurrido un error</p>";
+    $("#insertaResultado").html(msg);
+  }
+});
+     }
+     else if(formato=='pdf'){
+    	 var url = "{{  url('administracion_consultas_emisiones_emitidas_ayax') }}?fechaDesde="+ fechadesde + "&fechaHasta=" + fechahasta + "&_format=pdf";
+    	 $(location).attr('href',url);
+        	 
+         }
+   });
+}); 
+
+</script>
+
+{% endblock %}

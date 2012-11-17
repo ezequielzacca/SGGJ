@@ -1,0 +1,141 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+<div id="panelcompra" class="mws-panel grid_4 mws-collapsible">
+    
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-mastercard">Imprimir Reporte de Retenciones</span>
+     </div>
+<div class="mws-panel-body">
+<form id="formretenciones" class="mws-form" 
+      
+      action="{{ path('administracion_cierres_retenciones', {'lote':lote.id}) }}?_format=pdf"
+      
+      method="post" {{ form_enctype(form_retenciones) }}>
+     
+
+    
+        
+
+    {{ form_errors(form_retenciones) }}
+                
+                
+                        
+                
+                <div class="mws-form-row">
+                {{ form_label(form_retenciones.reparticiones) }}
+                {{ form_errors(form_retenciones.reparticiones) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_retenciones.reparticiones,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>   
+                </div>
+    
+                <div class="mws-form-row"> <!--  id="secciones" hidden="true"-->
+                {{ form_label(form_retenciones.secciones) }}
+                {{ form_errors(form_retenciones.secciones) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_retenciones.secciones,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>   
+                </div>
+                
+                <div class="mws-form-row"> <!--  id="secciones" hidden="true"-->
+                {{ form_label(form_retenciones.ordenamiento) }}
+                {{ form_errors(form_retenciones.ordenamiento) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_retenciones.ordenamiento,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>   
+                </div>
+                
+                
+                
+                
+                {{ form_rest(form_retenciones) }}
+                <div class="mws-form-row">
+                <input type="submit" class="mws-button green medium" value="Enviar"> 
+                </div>
+                
+    
+</form>
+        </div>
+                </div>
+                
+                <div id="panelcompra" class="mws-panel grid_4 mws-collapsible">
+    
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-mastercard">Imprimir Reporte por Comercio</span>
+     </div>
+<div class="mws-panel-body">
+<form id="formretenciones" class="mws-form" 
+      
+      action="{{ path('administracion_cierres_comercios', {'lote':lote.id}) }}?_format=pdf"
+      
+      method="post" {{ form_enctype(form_comercio) }}>
+     
+
+    
+        
+
+    {{ form_errors(form_comercio) }}
+                
+                
+                        
+                
+                <div id class="mws-form-row" hidden="hidden">
+                {{ form_label(form_comercio.proveedor) }}
+                {{ form_errors(form_comercio.proveedor) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_comercio.proveedor,{ 'attr' : { 'class' : 'proveedorId'}}) }}
+                
+                </div>
+                        
+                </div>
+
+                
+                 <div id class="mws-form-row">
+                {{ form_label(form_comercio.proveedor_desc) }}
+                {{ form_errors(form_comercio.proveedor_desc) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_comercio.proveedor_desc,{ 'attr' : { 'class' : 'mws-textinput proveedorDesc','readonly':'readonly' }}) }}
+                <a class="listas"  href="{{ path('lista_proveedores') }}">
+                                    <img src="{{ asset('css/icons/32/zoom.png') }}" />
+                                </a>
+                </div>   
+                </div>
+    
+                <div class="mws-form-row" id="rubros"> <!--  id="secciones" hidden="true"-->
+                {{ form_label(form_comercio.rubro) }}
+                {{ form_errors(form_comercio.rubro) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_comercio.rubro,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>   
+                </div>
+                
+               
+                
+                
+                
+                
+                {{ form_rest(form_retenciones) }}
+                <div class="mws-form-row">
+                <input type="submit" class="mws-button green medium" value="Enviar"> 
+                </div>
+                
+    
+</form>
+        </div>
+                </div>
+                {% endblock %}
+                {% block javascripts %}
+                {{ parent() }}
+                
+                <script type="text/javascript">
+                $(document).ready(function(){
+                    $('.proveedorId').change(function(){
+                        $('#rubros').not(':hidden').delay(500).slideToggle('slow');
+                        });
+                    });
+                </script>
+<!--
+
+//-->
+</script>
+                {% endblock %}

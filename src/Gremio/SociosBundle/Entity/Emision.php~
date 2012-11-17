@@ -1,0 +1,150 @@
+<?php
+
+namespace Gremio\SociosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Gremio\SociosBundle\Entity\Emision
+ *
+ * @ORM\Table(name="emision")
+ * @ORM\Entity(repositoryClass="Gremio\SociosBundle\Entity\EmisionRepository")
+ */
+class Emision {
+	/**
+	 * @var integer $id
+	 *
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private $id;
+
+	/**
+	 * @var float $importe
+	 *
+	 * @ORM\Column(name="importe", type="decimal", scale="2")
+	 */
+	private $importe;
+
+	/**
+	 * @var datetime $fecha_emision
+	 *
+	 * @ORM\Column(name="fecha_emision", type="datetime")
+	 */
+	private $fecha_emision;
+
+	/**
+	 * @var string $usuario_emision
+	 *
+	 * @ORM\Column(name="usuario_emision", type="string", length=50)
+	 */
+	private $usuario_emision;
+
+	/**
+	 * @var string $usuario_anulacion
+	 *
+	 * @ORM\Column(name="usuario_anulacion", type="string", length=50, nullable="true")
+	 */
+	private $usuario_anulacion;
+
+	/**
+	 * @var datetime $fecha_anulacion
+	 *
+	 * @ORM\Column(name="fecha_anulacion", type="datetime", nullable="true")
+	 */
+	private $fecha_anulacion;
+
+	/**
+	 * @var string $codigo_aprovacion
+	 *
+	 * @ORM\Column(name="codigo_aprovacion", type="string", length=255, nullable="true")
+	 */
+	private $codigo_aprovacion;
+	
+	
+	/**
+	 * @var datetime $fecha_aprovacion
+	 *
+	 * @ORM\Column(name="fecha_aprovacion", type="datetime")
+	 */
+	
+	private $fecha_aprovacion;
+
+	/**
+	 * @var datetime $fecha_validez
+	 *
+	 * @ORM\Column(name="fecha_validez", type="datetime")
+	 */
+	private $fecha_validez;
+
+	/**
+	 * @var integer $cuotas
+	 *
+	 * @ORM\Column(name="cantidad_cuotas", type="integer",nullable=true)
+	 */
+	private $cantidad_cuotas;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="TipoEmision")
+	 * @ORM\JoinColumn(name="tipo_emision_id", referencedColumnName="id") 
+	 */
+
+	private $tipo_emision;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="Gremio\AbmBundle\Entity\Socio")
+	 * @ORM\JoinColumn(name="socio_id", referencedColumnName="id") 
+	 */
+
+	private $socio;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="Gremio\ProveedoresBundle\Entity\Proveedor", inversedBy="emisiones")
+	 * @ORM\JoinColumn(name="proveedor_id", referencedColumnName="id") 
+	 */
+
+	private $proveedor;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="CuotaEmision", mappedBy="emision")
+	 * 
+	 */
+	protected $cuotas;
+
+	/**
+	 * @ORM\Column(name="tipo_combustible",type="string",nullable="true")
+	 *  
+	 */
+	protected $tipo_combustible;
+
+	/**
+	 * @ORM\Column(name="tipo_viaje",type="string",nullable="true")
+	 *  
+	 */
+	protected $tipo_viaje;
+
+	/**
+	 * @ORM\Column(name="origen",type="string",nullable="true")
+	 *  
+	 */
+	protected $origen;
+
+	/**
+	 * @ORM\Column(name="destino",type="string",nullable="true")
+	 *  
+	 */
+	protected $destino;
+
+	/**
+	 * @ORM\Column(name="cantidad_pasajeros",type="integer",nullable="true")
+	 *  
+	 */
+	protected $cantidad_pasajeros;
+
+	public function __construct() {
+		$this->cuotas = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
+
+}

@@ -1,0 +1,33 @@
+GremioSociosBundle:
+   resource: "@GremioSociosBundle/Controller/"
+   type:     annotation
+   prefix:   /
+   
+GremioProveedoresBundle:
+    resource: "@GremioProveedoresBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+GremioDefaultBundle:
+    resource: "@GremioDefaultBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+GremioSecurityBundle:
+    resource: "@GremioSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+GremioAbmBundle:
+    resource: "@GremioAbmBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+    
+_user_bundle:
+    resource: "@GremioSecurityBundle/Resources/config/routing.yml"
+
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal

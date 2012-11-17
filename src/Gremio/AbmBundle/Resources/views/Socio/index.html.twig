@@ -1,0 +1,94 @@
+
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+
+
+{% if app.session.hasFlash('mensaje') %}
+<div>{{ app.session.getFlash('mensaje') | date('Y-m-d') }}</div>
+{% endif %}
+<div class="mws-panel grid_8">
+                	<div class="mws-panel-header">
+                    	<span class="mws-i-24 i-table-1">Lista de Socios</span>
+                    </div>
+        <div>
+                {% if app.session.hasFlash('succes') %}
+
+                    <div class="mws-form-message success">
+                        {{ app.session.flash('succes') }}
+                    </div>
+                {% endif %}
+            </div>
+                    <div class="mws-panel-body">
+                        
+                        <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                            	<li><a href="{{ path('socio_new') }}" class="mws-ic-16 ic-add">Alta de Socio</a></li>
+                            	
+                            </ul>
+                        </div>
+
+<table class="mws-datatable-fn mws-table">
+    <thead>
+        <tr>
+            {# <th hidden="hidden">Id</th> #}
+            <th>Legajo</th>
+            <th>Reparticion</th>
+            <th>Numero de Documento</th>
+            {#<th>Cuit</th>#}
+            <th>Apellido</th>
+            <th>Nombres</th>
+            {#<th>Domicilio_laboral</th>#}
+            {#<th>Telefono_laboral</th>#}
+            {#<th>Sexo</th>#}
+            {#<th>Numero_mesa</th>#}
+            {#<th>Ingreso_justicia</th>#}
+            {#<th>Cbu</th>#}
+            {#<th>Domicilio_particular</th>#}
+            {#<th>Telefono_particular</th>#}
+            {#<th>Email</th>#}
+            {#<th>Fecha_nacimiento</th>#}
+            {# <th>Opciones</th> #}
+            <th>Fecha de Baja</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr href="{{ url('socio_show', { 'id': entity.id }) }}" class="dbclickeable">
+           {# <td hidden="hidden"><a href="{{ path('socio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td> #}
+            <td>{{ entity.Legajo }}</td>
+            <td>{{ entity.reparticion }}</td>
+            <td>{{ entity.NumDocumento }}</td>
+            {#<td>{{ entity.Cuit }}</td>#}
+            <td>{{ entity.Apellido }}</td>
+            <td>{{ entity.Nombres }}</td>
+            <td>{{ entity.fechaBaja is empty ? "" : entity.fechaBaja | date("d/m/y") }}</td>
+            {#<td>{{ entity.DomicilioLaboral }}</td>#}
+           {# <td>{{ entity.TelefonoLaboral }}</td>#}
+            {#<td>{{ entity.Sexo }}</td>#}
+            {#<td>{{ entity.NumeroMesa }}</td>#}
+            {#<td>{% if entity.IngresoJusticia %}{{ entity.IngresoJusticia|date('Y-m-d H:i:s') }}{% endif%}</td>#}
+            {#<td>{{ entity.Cbu }}</td>#}
+            {#<td>{{ entity.DomicilioParticular }}</td>#}
+            {#<td>{{ entity.TelefonoParticular }}</td>#}
+            {#<td>{{ entity.Email }}</td>#}
+            {#<td>{% if entity.FechaNacimiento %}{{ entity.FechaNacimiento|date('Y-m-d H:i:s') }}{% endif%}</td>#}
+           {# <td>
+                
+                    
+                
+                        <a class="mws-button small blue mostrar" href="{{ path('socio_show', { 'id': entity.id }) }}">Ver Datos</a>
+                    
+                        <a class="mws-button small blue" href="{{ path('socio_edit', { 'id': entity.id }) }}">Editar</a>
+                    
+            </td>
+#}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+                        </div>
+                </div>
+
+   
+{% endblock %}
+

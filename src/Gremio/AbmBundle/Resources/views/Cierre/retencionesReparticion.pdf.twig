@@ -1,0 +1,70 @@
+<pdf>
+    <dynamic-page encoding="UTF-8" font-type="DejaVuSans">
+    
+        <p text-align="right">Salta, {{ "now" | date('d/m/Y') }}</p>
+        <p font-style="bold" padding="0px 0px 0px 0px" text-align="justify" width="250px">Agremiación de Empleados del Poder Judicial y Ministerio Público de la Provincia de Salta</p>
+        <p font-size="10px" padding="0px 0px 0px 0px" text-align="justify" width="250px">25 de Mayo 573 - Tel 4215769-4224607</p>
+        <p font-size="9px" padding="0px 0px 0px 0px" text-align="justify" width="250px">e-mail ajuprosal@hotmail.com</p>
+
+
+        
+        <h1 text-align="center">Listado de Retenciones por Socio correspondiente al: {{ cierre.descripcion }}</h1>
+        
+        <placeholders>
+            <header>
+                <div text-align="right" height="25px" padding-right="50px" padding-top="150px">
+                    <page-info offset="0" format="Pagina N %s" />
+                </div>
+            </header>
+        </placeholders>
+        
+        <table padding-top="60px">
+        	
+	        <tr>
+		        <td font-style="bold" border.type="none">
+		        	Legajo
+		        </td>
+		        <td font-style="bold" border.type="none">
+		        	Nombre
+		        </td>
+		        <td font-style="bold" border.type="none">
+		        	Num Documento
+		        </td>
+		        <td font-style="bold" border.type="none">
+		        	Sexo
+		        </td>
+		        <td font-style="bold" border.type="none">
+		        	Seccion
+		        </td>
+		        <td font-style="bold" border.type="none">
+		        	Importe
+		        </td>
+        	</tr>
+			
+        	{% for linea in detalles %}
+	        	
+	        	{% if seccion!=null %}
+		        	<tr >
+		        		<td padding-top="20px" padding-left="20px" padding-bottom="20px" border.type="none" font-style="bold">{{ seccion.Descripcion }}</td>
+		        	</tr>
+	        	{% endif %}
+	        	<tr border.type="none">
+	        		<td border.type="none">{{ linea.legajo }}</td>
+	        		<td border.type="none" width="230px">{{ linea.apellido ~ " " ~ linea.nombres }}</td>
+	        		<td border.type="none" width="150px">{{ linea.documento }}</td>
+	        		{% if reparticion=="Ministerio Publico" or reparticion=="Procuracion" %}
+	        		<td border.type="none">{{ linea.sexo }}</td>
+	        		<td border.type="none">{{ linea.codigoSeccion }}</td>
+	        		{% else %}
+	        		<td border.type="none"></td>
+	        		<td border.type="none"></td>
+	        		{% endif %}
+	        		<td border.type="none">{{ completar_decimales(linea.importeCuota) }}</td>
+	        	</tr>
+        	{% endfor %}
+        </table>
+
+        
+
+            </dynamic-page>
+        </pdf>

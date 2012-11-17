@@ -1,0 +1,126 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+<div class="mws-panel grid_4">
+                    
+    <div class="mws-panel-header">
+                    	<span>Datos del Proveedor</span>
+                    </div>
+    <div class="mws-panel-body">
+        <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                                <li><a href="{{ path('administracion_entidades_proveedor') }}" class="mws-ic-16 ic-arrow-left">Volver a la Lista</a></li>
+                            	<li><a href="{{ path('administracion_entidades_proveedor_edit', { 'id': entity.id }) }}" class="mws-ic-16 ic-pencil">Editar</a></li>
+                            	{% if importe_pago>0 %}
+                            	<li><a href="javascript:void(0);" id="registraPago" class="mws-ic-16 ic-money-dollar">Registrar Pago</a></li>                          	
+                            	{% endif %}
+                            </ul>
+                        </div>
+        <div class="mws-panel-content">
+        
+                            
+<table class="mws-table">
+    <tbody>
+        {#<tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>#}
+        <tr>
+            <th>Rubro</th>
+            <td>{{ entity.rubro }}</td>
+        </tr>
+        <tr>
+            <th>Razon Social</th>
+            <td>{{ entity.razonsocial }}</td>
+        </tr>
+        <tr>
+            <th>Cuit</th>
+            <td>{{ entity.cuit }}</td>
+        </tr>
+        <tr>
+            <th>Telefono</th>
+            <td>{{ entity.telefono }}</td>
+        </tr>
+        <tr>
+            <th>Domicilio</th>
+            <td>{{ entity.domicilio }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Cbu</th>
+            <td>{{ entity.cbu }}</td>
+        </tr>
+        <tr>
+            <th>Comision</th>
+            <td>{{ entity.comision }}</td>
+        </tr>
+        <tr>
+            <th>Gasto</th>
+            <td>{{ entity.gasto }}</td>
+        </tr>
+        <tr>
+            <th>Genera Pago</th>
+            <td>{% if entity.generaPago==1 %}
+                    <img src="{{ asset('css/icons/16/accept.png') }}" />
+                {% else %}
+                    <img src="{{ asset('css/icons/16/cross.png') }}" />
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Informe Banco</th>
+            <td>{% if entity.informeBanco==1 %}
+                    <img src="{{ asset('css/icons/16/accept.png') }}" />
+                {% else %}
+                    <img src="{{ asset('css/icons/16/cross.png') }}" />
+                {% endif %} 
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+            
+            </div>
+            </div>
+    </div>
+                          
+                </div>
+                {% if importe_pago>0 %}
+                <div id="formularioPago"  title="Confirmar Pago">
+                El monto a pagar es de <bold>${{ completar_decimales(importe_pago) }}</bold>.
+                 &#191;Confirma el Pago?
+                </div>
+				{% endif %}
+
+       
+   
+        
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+{% if importe_pago>0 %}
+	$(document).ready(function(){
+		$('#formularioPago').dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                "Confirmar": function() {
+                    $(location).attr('href','{{ url('administracion_entidades_proveedor_pagar',{'id':entity.id}) }}');
+                },
+                "Cancelar": function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+
+        $('#registraPago').click(function(){
+        	$('#formularioPago').dialog('open');
+        });
+	});
+	{% endif %}
+</script>
+{% endblock %}

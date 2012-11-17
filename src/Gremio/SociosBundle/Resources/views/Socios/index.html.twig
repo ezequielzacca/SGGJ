@@ -1,0 +1,71 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+
+
+{% include 'GremioSociosBundle:Socios:includes/margen.html.twig' %}
+
+<div id="panelcompra" class="mws-panel grid_8  ">
+    
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-mastercard">Panel de Actividades</span>
+     </div>
+<div class="mws-panel-body">
+
+<div class="mws-form-message info">
+       Bienvenido {{ app.user.nombres }} {{ app.user.apellido }} al pane de Actividades,
+    desde aqui podra autogestionar su cuenta 
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+{% include 'GremioSociosBundle:Socios:includes/emisionesVigentes.html.twig' %}
+
+{% include 'GremioSociosBundle:Socios:generarEmision.html.twig' %}
+
+<div hidden="hidden" id="dialogo" title="Confirmar Anulacion">
+                    Esta seguro de que desea anular la emision?
+                </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+
+
+
+            <script type="text/javascript">
+              
+                $("#dialogo").dialog({
+                  autoOpen: false,
+                  modal: true
+                });
+              
+
+              $(".cancelable").click(function(e) {
+                e.preventDefault();
+                var targetUrl = $(this).attr("href");
+
+                $("#dialogo").dialog({
+                  buttons : {
+                    "Seguro" : function() {
+                      window.location.href = targetUrl;
+                    },
+                    "No... Cancelar" : function() {
+                      $(this).dialog("close");
+                    }
+                  }
+                });
+
+                $("#dialogo").dialog("open");
+                });
+              
+                </script>
+
+
+{% endblock %}
+

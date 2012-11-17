@@ -1,0 +1,434 @@
+<?php
+
+namespace Gremio\ProveedoresBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Gremio\ProveedoresBundle\Entity\Proveedor
+ *
+ * @ORM\Table(name="proveedor")
+ * @ORM\Entity(repositoryClass="Gremio\ProveedoresBundle\Entity\ProveedorRepository")
+ */
+class Proveedor {
+
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\HasLifecycleCallbacks()
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string $razon_social
+     *
+     * @ORM\Column(name="razon_social", type="string", length=100)
+     */
+    private $razon_social;
+
+    /**
+     * @var string $cuit
+     *
+     * @ORM\Column(name="cuit", type="string", length=11)
+     */
+    private $cuit;
+
+    /**
+     * @var string $telefono
+     *
+     * @ORM\Column(name="telefono", type="string", length=12)
+     */
+    private $telefono;
+
+    /**
+     * @var string $domicilio
+     *
+     * @ORM\Column(name="domicilio", type="string")
+     */
+    private $domicilio;
+
+    /**
+     * @var string $email
+     *
+     * @ORM\Column(name="email", type="string", length=50)
+     */
+    private $email;
+
+    /**
+     * @var string $cbu
+     *
+     * @ORM\Column(name="cbu", type="string", length=15)
+     */
+    private $cbu;
+
+    /**
+     * @var integer $comision
+     *
+     * @ORM\Column(name="comision", type="integer")
+     */
+    private $comision;
+
+    /**
+     * @var integer $gasto
+     *
+     * @ORM\Column(name="gasto", type="integer")
+     */
+    private $gasto;
+
+    /**
+     * @var boolean $genera_pago
+     *
+     * @ORM\Column(name="genera_pago", type="boolean", nullable=true)
+     */
+    private $genera_pago;
+
+    /**
+     * @var boolean $informe_banco
+     *
+     * @ORM\Column(name="informe_banco", type="boolean", nullable=true)
+     */
+    private $informe_banco;
+
+    /**
+     * @var boolean $evento
+     *
+     * @ORM\Column(name="evento", type="boolean", nullable=true)
+     */
+    private $evento;
+
+    /**
+     * @var integer $fecha_baja
+     *
+     * @ORM\Column(name="fecha_baja", type="datetime", nullable=true)
+     */
+    private $fecha_baja;
+
+    /**
+     * @var integer $fecha_vencimiento
+     *
+     * @ORM\Column(name="fecha_vencimiento", type="datetime", nullable=true)
+     */
+    private $fecha_vencimiento;
+
+    /**
+     * @ORM\Column(name="usuario_baja", type="string",nullable="true") 
+     */
+    private $usuario_baja;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Rubro")
+     * @ORM\JoinColumn(name="rubro_id", referencedColumnName="id") 
+     */
+    private $rubro;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set razon_social
+     *
+     * @param string $razonSocial
+     */
+    public function setRazonSocial($razonSocial) {
+        $this->razon_social = $razonSocial;
+    }
+
+    /**
+     * Get razon_social
+     *
+     * @return string 
+     */
+    public function getRazonSocial() {
+        return $this->razon_social;
+    }
+
+    /**
+     * Set cuit
+     *
+     * @param string $cuit
+     */
+    public function setCuit($cuit) {
+        $this->cuit = $cuit;
+    }
+
+    /**
+     * Get cuit
+     *
+     * @return string 
+     */
+    public function getCuit() {
+        return $this->cuit;
+    }
+
+    /**
+     * Set telefono
+     *
+     * @param string $telefono
+     */
+    public function setTelefono($telefono) {
+        $this->telefono = $telefono;
+    }
+
+    /**
+     * Get telefono
+     *
+     * @return string 
+     */
+    public function getTelefono() {
+        return $this->telefono;
+    }
+
+    /**
+     * Set domicilio
+     *
+     * @param string $domicilio
+     */
+    public function setDomicilio($domicilio) {
+        $this->domicilio = $domicilio;
+    }
+
+    /**
+     * Get domicilio
+     *
+     * @return string 
+     */
+    public function getDomicilio() {
+        return $this->domicilio;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     */
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail() {
+        return $this->email;
+    }
+
+    /**
+     * Set cbu
+     *
+     * @param string $cbu
+     */
+    public function setCbu($cbu) {
+        $this->cbu = $cbu;
+    }
+
+    /**
+     * Get cbu
+     *
+     * @return string 
+     */
+    public function getCbu() {
+        return $this->cbu;
+    }
+
+    /**
+     * Set comision
+     *
+     * @param integer $comision
+     */
+    public function setComision($comision) {
+        $this->comision = $comision;
+    }
+
+    /**
+     * Get comision
+     *
+     * @return integer 
+     */
+    public function getComision() {
+        return $this->comision;
+    }
+
+    /**
+     * Set gasto
+     *
+     * @param integer $gasto
+     */
+    public function setGasto($gasto) {
+        $this->gasto = $gasto;
+    }
+
+    /**
+     * Get gasto
+     *
+     * @return integer 
+     */
+    public function getGasto() {
+        return $this->gasto;
+    }
+
+    /**
+     * Set genera_pago
+     *
+     * @param boolean $generaPago
+     */
+    public function setGeneraPago($generaPago) {
+        $this->genera_pago = $generaPago;
+    }
+
+    /**
+     * Get genera_pago
+     *
+     * @return boolean 
+     */
+    public function getGeneraPago() {
+        return $this->genera_pago;
+    }
+
+    /**
+     * Set informe_banco
+     *
+     * @param boolean $informeBanco
+     */
+    public function setInformeBanco($informeBanco) {
+        $this->informe_banco = $informeBanco;
+    }
+
+    /**
+     * Get informe_banco
+     *
+     * @return boolean 
+     */
+    public function getInformeBanco() {
+        return $this->informe_banco;
+    }
+
+    public function __toString() {
+        return $this->getRazonSocial();
+    }
+
+    /**
+     * Set fecha_baja
+     *
+     * @param datetime $fechaBaja
+     */
+    public function setFechaBaja($fechaBaja) {
+        $this->fecha_baja = $fechaBaja;
+    }
+
+    /**
+     * Get fecha_baja
+     *
+     * @return datetime 
+     */
+    public function getFechaBaja() {
+        return $this->fecha_baja;
+    }
+
+    /**
+     * Set usuario_baja
+     *
+     * @param datetime $usuarioBaja
+     */
+    public function setUsuarioBaja($usuarioBaja) {
+        $this->usuario_baja = $usuarioBaja;
+    }
+
+    /**
+     * Get usuario_baja
+     *
+     * @return datetime 
+     */
+    public function getUsuarioBaja() {
+        return $this->usuario_baja;
+    }
+
+    /**
+     * Set rubro
+     *
+     * @param Gremio\ProveedoresBundle\Entity\Rubro $rubro
+     */
+    public function setRubro(\Gremio\ProveedoresBundle\Entity\Rubro $rubro) {
+        $this->rubro = $rubro;
+    }
+
+    /**
+     * Get rubro
+     *
+     * @return Gremio\ProveedoresBundle\Entity\Rubro 
+     */
+    public function getRubro() {
+        return $this->rubro;
+    }
+
+    /**
+     * Set evento
+     *
+     * @param boolean $evento
+     */
+    public function setEvento($evento) {
+        $this->evento = $evento;
+    }
+
+    /**
+     * Get evento
+     *
+     * @return boolean 
+     */
+    public function getEvento() {
+        return $this->evento;
+    }
+
+    /**
+     * Set fecha_vencimiento
+     *
+     * @param datetime $fechaVencimiento
+     */
+    public function setFechaVencimiento($fechaVencimiento) {
+        $this->fecha_vencimiento = $fechaVencimiento;
+    }
+
+    /**
+     * Get fecha_vencimiento
+     *
+     * @return datetime 
+     */
+    public function getFechaVencimiento() {
+        return $this->fecha_vencimiento;
+    }
+
+    /**
+     * @ORM\prePersist 
+     */
+    public function isEvento() {
+        if ($this->getEvento() == true) {
+            $this->setCbu(1);
+            $this->setComision(0);
+            $this->setGasto(0);
+        } else {
+            if (!$this->getEvento())
+                $this->setEvento(false);
+        }
+    }
+
+    /**
+     * @ORM\preUpdate 
+     */
+    public function isEvento2() {
+
+
+        if (!$this->getEvento())
+            $this->setEvento(false);
+    }
+
+}

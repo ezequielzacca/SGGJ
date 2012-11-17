@@ -1,0 +1,226 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+<div class="mws-panel grid_6">
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-sign-post">Editar Proveedor</span>
+     </div>
+        
+<div class="mws-panel-body">
+    <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                                    
+                            	<li><a href="{{ path('administracion_entidades_proveedor') }}" class="mws-ic-16 ic-arrow-left">Volver a la Lista</a></li>
+                                
+                                
+                                
+                            	<li><a href="#" id="linkborra" class="mws-ic-16 ic-trash">
+                                        {% if entity.fechaBaja %}
+                                        Quitar Baja
+                                        {% else %}
+                                        Dar de Baja
+                                        {%endif%}
+                                    </a></li> 
+                                
+                            </ul>
+                        </div>
+<form id="mws-wizard-form" class="mws-form" action="{{ path('administracion_entidades_proveedor_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    <div class="mws-wizard-nav clearfix">
+            <ul>
+                <li><a class="mws-ic-16 ic-database" href="#step-1">Datos</a></li>
+            </ul>
+        </div>    
+{#
+ <div id class="mws-form-row">
+            {{ form_label(form.Num_Documento) }}
+            {{ form_errors(form.Num_Documento) }}
+                <div class="mws-form-item large">     
+                    {{ form_widget(form.Num_Documento,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+            </div>
+#}
+
+        
+        <fieldset id="step-1" class="mws-form-inline">
+    {{ form_errors(form) }}
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.rubro) }}
+                {{ form_errors(form.rubro) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.rubro,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.razon_social) }}
+                {{ form_errors(form.razon_social) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.razon_social,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.cuit) }}
+                {{ form_errors(form.cuit) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.cuit,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.telefono) }}
+                {{ form_errors(form.telefono) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.telefono,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.domicilio) }}
+                {{ form_errors(form.domicilio) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.domicilio,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.email) }}
+                {{ form_errors(form.email) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.email,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.cbu) }}
+                {{ form_errors(form.cbu) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.cbu,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.comision) }}
+                {{ form_errors(form.comision) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.comision,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.gasto) }}
+                {{ form_errors(form.gasto) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form.gasto,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.genera_pago) }}
+                {{ form_errors(form.genera_pago) }}
+                        
+                        
+                <div id="mws-ui-button-cb">
+                <div class="mws-form-item large">  
+                {{ form_widget(form.genera_pago,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                </div>
+                
+                <div id class="mws-form-row">
+                {{ form_label(form.informe_banco) }}
+                {{ form_errors(form.informe_banco) }}
+                <div id="mws-ui-button-cb">
+                <div class="mws-form-item large">  
+                {{ form_widget(form.informe_banco,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                
+                
+                
+                {{ form_rest(form) }}
+            </fieldset> 
+                
+    
+</form>
+        </div>
+                </div>
+        
+        <form hidden="hidden" action="{{ path('administracion_entidades_proveedor_delete', { 'id': entity.id }) }}" id="formulario" method="post">
+            {{ form_widget(delete_form) }}
+            <button class="mws-button large blue mws-i-24 i-trashcan" id="borrasocio" type="submit">Borrar Socio</button>
+        </form>
+		
+<div id="dialog" title="Borrar Proveedor">
+    <p><img src="{{ asset('css/icons/32/error.png') }}" />
+                {% if entity.fechaBaja %}
+                Esta a punto de quitar la baja del Proveedor, Esta seguro?
+                {% else %}
+                Esta a punto de dar de baja el Proveedor, Esta seguro?
+                {% endif %}
+            </p>
+            
+</div>
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+	$(document).ready(function(){
+    $("#dialog").dialog({
+      modal: true,
+      autoOpen: false,
+      width: 500,
+      height: 200,
+
+      });
+
+
+    $("#linkborra").click(function(e) {
+        
+        
+
+        e.preventDefault();
+
+        $("#dialog").dialog('option', 'buttons', {
+                "Entiendo... Continuar" : function() {
+                    $("#formulario").submit();
+                    return true;
+                    },
+                "Cancelar" : function() {
+                    $(this).dialog("close");
+                    return false;
+                    }
+                });
+
+       return $("#dialog").dialog("open");
+
+    });
+
+});
+
+	</script>
+        
+
+<script>
+        $("#mws-wizard-form").mwsWizard({
+        'submitButtonLabel' : 'Guardar Cambios',
+        'forwardOnly' : false,
+        'nextButtonLabel' : 'Siguiente',
+        'prevButtonLabel' : 'Atras',
+        'nextButtonClass' : 'mws-button blue',
+        onLeaveStep: function(index, elem) {
+				return v.form();
+			}, 
+			onBeforeSubmit: function() {
+				return v.form();
+			}
+    });
+    var v = $("#mws-wizard-form").validate({ onsubmit: false });
+    
+    
+</script>
+{% endblock %}

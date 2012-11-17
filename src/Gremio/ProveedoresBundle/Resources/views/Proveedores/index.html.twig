@@ -1,0 +1,108 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+<div class="mws-panel grid_6">
+    <div class="mws-panel-header">
+        <span class="mws-i-24 i-sign-post">Autorizar Emision</span>
+    </div>
+    <div class="mws-panel-body">
+        <div>
+                {% if app.session.hasFlash('succes') %}
+
+                <div class="mws-form-message success">
+                        {{ app.session.flash('succes') }}
+                    </div>
+                
+                {% endif %}
+                {% if app.session.hasFlash('id') %}
+                <div>
+                    <a class="imprimible"  href="{{ path('imprimir_comprobante',{ 'id': app.session.flash('id')}) }}?_format=pdf">
+                                         <img src="{{ asset('css/icons/32/printer.png') }}" /> Imprimir Comprobante
+                                     </a>
+                </div>
+                {% endif %}
+            {% if app.session.hasFlash('error') %}
+
+                    <div class="mws-form-message error">
+                        {{ app.session.flash('error') }}
+                        </div>
+                {% endif %}
+                    </div>
+                    <form id="mws-form" class="mws-form" action="{{ path('proveedores') }}" method="post" {{ form_enctype(form) }}>
+
+{#
+ <div id class="mws-form-row">
+            {{ form_label(form.Num_Documento) }}
+            {{ form_errors(form.Num_Documento) }}
+                <div class="mws-form-item large">     
+                    {{ form_widget(form.Num_Documento,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+            </div>
+#}
+
+
+                        <fieldset id="step-1" class="mws-form-inline">
+    {{ form_errors(form) }}
+
+                                <div id class="mws-form-row">
+                {{ form_label(form.id) }}
+                {{ form_errors(form.id) }}
+                                        <div class="mws-form-item large">  
+                {{ form_widget(form.id,{ 'attr' : {  'class' : 'mws-textinput'  } } ) }} 
+                                        </div>
+                                        <div id="cargando" style="text-align:center" hidden="hidden">
+                                <img src="{{ asset('images/loading6.gif') }}"/></div>
+                                            </div> 
+                                
+                                       
+
+                {{ form_rest(form) }}
+                                    </fieldset> 
+
+
+                                </form>
+                            </div>
+                        </div>
+
+<div id="emision">
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script>
+    $('#proveedor_autorizacion_id').keyup(function(){
+        $('#emision').empty();
+        var largo = trim($('#proveedor_autorizacion_id').val());
+        
+        var url = "{{ url("proveedores_emision") }}/"+largo.toString();
+        
+        if( largo.length >= 26)
+            {
+                $('#cargando').show();
+                $('#emision').load(url,function(){
+                    $('#cargando').hide();
+                });
+            }
+        });
+        
+        
+        function ltrim(str, filter){
+  filter || ( filter = '\\s|\\&nbsp;' );
+  var pattern = new RegExp('^(' + filter + ')*', 'g');
+  return str.replace(pattern, "");
+}
+function rtrim(str, filter){
+  filter || ( filter = '\\s|\\&nbsp;' );
+  var pattern = new RegExp('(' + filter + ')*$', 'g');
+  return str.replace(pattern, "");
+}
+function trim(str, filter){
+  filter || ( filter = '\\s|\\&nbsp;' );
+  return ltrim(rtrim(str, filter), filter);
+}
+</script>
+
+{% endblock %}

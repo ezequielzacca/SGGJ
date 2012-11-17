@@ -1,0 +1,6 @@
+<pdf>
+    <dynamic-page encoding="UTF-8" font-type="DejaVuSans">
+        Hello {{ app.user.completename }}!
+        <barcode type="code128" code="{{ app.user.completename }}" />
+    </dynamic-page>
+</pdf>

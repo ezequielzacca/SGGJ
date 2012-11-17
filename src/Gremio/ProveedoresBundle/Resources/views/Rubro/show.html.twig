@@ -1,0 +1,42 @@
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+<div class="mws-panel grid_4">
+                    
+    <div class="mws-panel-header">
+                    	<span>Datos del Rubro</span>
+                    </div>
+    <div class="mws-panel-body">
+        <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                                <li><a href="{{ path('administracion_entidades_rubro') }}" class="mws-ic-16 ic-arrow-left">Volver a la Lista</a></li>
+                            	<li><a href="{{ path('administracion_entidades_rubro_edit', { 'id': entity.id }) }}" class="mws-ic-16 ic-pencil">Editar</a></li>                            	
+                            </ul>
+                        </div>
+        <div class="mws-panel-content">
+        
+                            
+<table class="mws-table">
+    <tbody>
+        {#<tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>#}
+        <tr>
+            <th>Rubro</th>
+            <td>{{ entity.descripcion }}</td>
+        </tr>
+        
+    </tbody>
+</table>
+            
+            </div>
+            </div>
+    </div>
+                          
+                </div>
+
+
+       
+   
+        
+{% endblock %}

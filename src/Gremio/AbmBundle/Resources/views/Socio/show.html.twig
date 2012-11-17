@@ -1,0 +1,558 @@
+
+{% extends 'GremioAbmBundle::layout.html.twig' %}
+{% block body %}
+
+{% if app.session.hasFlash('mensaje') %}
+<script>
+    $(function() {
+		
+	
+		$( "#mensaje" ).dialog({
+			modal: true,
+                        title: "Alta de Socio",
+			buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	});
+</script>
+<div id="mensaje"><p>
+		<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+		{{ app.session.flash('mensaje') }}
+	</p></div>
+
+{% endif %}
+
+{% include 'GremioSociosBundle:Socios:includes/margen.html.twig' with { 'socio':entity } %}
+
+<div class="mws-panel grid_4">
+                    
+    <div class="mws-panel-header">
+                    	<span class="mws-i-24 i-male-contour">Datos del Socio</span>
+                    </div>
+    <div class="mws-panel-body">
+        <div class="mws-panel-toolbar bottom clearfix">
+                        	<ul>
+                                <li><a href="{{ path('socio') }}" class="mws-ic-16 ic-arrow-left">Volver a la Lista</a></li>
+                            	<li><a href="{{ path('socio_edit', { 'id': entity.id }) }}" class="mws-ic-16 ic-pencil">Editar</a></li>
+                                
+                            </ul>
+                        </div>
+        <div class="mws-panel-content">
+        
+                            
+<table class="mws-table">
+    
+	<tbody>
+       {# <tr>
+            <td>Id</td>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr> #}
+            <td>Legajo</td>
+            <td>{{ entity.Legajo }}</td>
+        </tr>
+        <tr>
+            <td>Reparticion</td>
+            <td>{{ entity.Reparticion }}</td>
+        </tr>
+        <tr>
+            <td>Numero de Documento</td>
+            <td>{{ entity.NumDocumento }}</td>
+        </tr>
+        <tr>
+            <td>Cuit</td>
+            <td>{{ entity.Cuit }}</td>
+        </tr>
+        <tr>
+            <td>Apellido</td>
+            <td>{{ entity.Apellido }}</td>
+        </tr>
+        <tr>
+            <td>Nombres</td>
+            <td>{{ entity.Nombres }}</td>
+        </tr>
+        <tr>
+            <td>Domicilio Laboral</td>
+            <td>{{ entity.DomicilioLaboral }}</td>
+        </tr>
+        <tr>
+            <td>Telefono Laboral</td>
+            <td>{{ entity.TelefonoLaboral }}</td>
+        </tr>
+        <tr>
+            <td>Sexo</td>
+            <td>{{ entity.Sexo }}</td>
+        </tr>
+        <tr>
+            <td>Numero de Mesa</td>
+            <td>{{ entity.NumeroMesa }}</td>
+        </tr>
+        <tr>
+            <td>Ingreso Justicia</td>
+            <td>{{ entity.IngresoJusticia|date('d/m/Y') }}</td>
+        </tr>
+        <tr>
+            <td>Cbu</td>
+            <td>{{ entity.Cbu }}</td>
+        </tr>
+        <tr>
+            <td>Domicilio Particular</td>
+            <td>{{ entity.DomicilioParticular }}</td>
+        </tr>
+        <tr>
+            <td>Telefono Particular</td>
+            <td>{{ entity.TelefonoParticular }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ entity.Email }}</td>
+        </tr>
+        <tr>
+            <td>Fecha de Nacimiento</td>
+            <td>{{ entity.FechaNacimiento|date('d/m/Y') }}</td>
+        </tr>
+    </tbody>
+</table>
+            </div>
+            </div>
+    </div>
+                          
+
+                
+
+{% include 'GremioSociosBundle:Socios:includes/emisionesVigentes.html.twig' with { 'socio':entity }%}
+
+<a name="formularios"></a>                         
+ <div id="panelcompra" class="mws-panel grid_4 mws-collapsible mws-collapsed">
+    
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-mastercard">Generar Orden de Compra</span>
+     </div>
+<div class="mws-panel-body">
+<form id="formcompra" class="mws-form" 
+      
+      action="{{ path('socio_show', {'tipo':'compra','id':entity.id}) }}"
+      
+      method="post" {{ form_enctype(form_compra) }}>
+     
+
+    
+        
+{% if app.session.hasFlash('error-compra') %}
+    <script>
+        $("#panelcompra").removeClass("mws-collapsed");
+    </script>
+<div class="mws-form-message error">
+    {{ app.session.flash('error-compra') }}
+</div>
+{% endif %}
+    {{ form_errors(form_compra) }}
+                
+                <div class="mws-form-row" hidden="hidden">
+                {{ form_label(form_compra.proveedor) }}
+                {{ form_errors(form_compra.proveedor) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_compra.proveedor,{ 'attr' : { 'class' : 'proveedorId'}}) }}
+                
+                </div>
+                        
+                </div>
+
+                
+                 <div class="mws-form-row">
+                {{ form_label(form_compra.proveedor_desc) }}
+                {{ form_errors(form_compra.proveedor_desc) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_compra.proveedor_desc,{ 'attr' : { 'class' : 'mws-textinput proveedorDesc','readonly':'readonly' }}) }}
+                <a class="listas"  href="{{ path('lista_proveedores') }}">
+                                    <img src="{{ asset('css/icons/32/zoom.png') }}" />
+                                </a>
+                </div>   
+                </div>
+    
+                <div class="mws-form-row">
+                {{ form_label(form_compra.importe) }}
+                {{ form_errors(form_compra.importe) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_compra.importe,{ 'attr' : { 'class' : 'mws-textinput importe' }}) }}
+                </div>   
+                </div>
+                
+                
+                
+                
+                
+                {{ form_rest(form_compra) }}
+                <div class="mws-form-row">
+                <input type="submit" class="mws-button green medium" value="Enviar"> 
+                </div>
+                
+    
+</form>
+        </div>
+                </div>      
+
+
+<div id="panelcombustible" class="mws-panel grid_4 mws-collapsible mws-collapsed">
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-battery">Generar Vale de Combustible</span>
+     </div>
+<div class="mws-panel-body">
+<form class="mws-form" action="{{ path('socio_show', {'tipo':'combustible','id':entity.id}) }}" method="post" {{ form_enctype(form_combustible) }}>
+     {% if app.session.hasFlash('error-combustible') %}
+    <script>
+        $("#panelcombustible").removeClass("mws-collapsed");
+    </script>
+<div class="mws-form-message error">
+    {{ app.session.flash('error-combustible') }}
+</div>
+{% endif %}
+{#
+ <div id class="mws-form-row">
+            {{ form_label(form.Num_Documento) }}
+            {{ form_errors(form.Num_Documento) }}
+                <div class="mws-form-item large">     
+                    {{ form_widget(form.Num_Documento,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+            </div>
+#}
+
+        
+
+    {{ form_errors(form_combustible) }}
+                
+                <div class="mws-form-row" hidden="hidden">
+                {{ form_label(form_combustible.proveedor) }}
+                {{ form_errors(form_combustible.proveedor) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_combustible.proveedor,{ 'attr' : { 'class' : 'proveedorId'}}) }}
+                
+                </div>
+                        
+                </div>
+                
+                 <div class="mws-form-row">
+                {{ form_label(form_combustible.proveedor_desc) }}
+                {{ form_errors(form_combustible.proveedor_desc) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_combustible.proveedor_desc,{ 'attr' : { 'class' : 'mws-textinput proveedorDesc','readonly':'readonly' }}) }}
+                <a class="listas"  href="{{ path('lista_proveedores') }}">
+                                    <img src="{{ asset('css/icons/32/zoom.png') }}" />
+                                </a>
+                </div>   
+                </div>
+    
+                <div class="mws-form-row">
+                {{ form_label(form_combustible.tipo_combustible) }}
+                {{ form_errors(form_combustible.tipo_combustible) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_combustible.tipo_combustible,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>   
+                </div>
+    
+                <div  class="mws-form-row">
+                {{ form_label(form_combustible.importe) }}
+                {{ form_errors(form_combustible.importe) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_combustible.importe,{ 'attr' : { 'class' : 'mws-textinput importe' }}) }}
+                </div>   
+                </div>
+                
+                
+                
+                
+                {{ form_rest(form_combustible) }}
+                <div class="mws-form-row">
+                <input type="submit" class="mws-button green medium" value="Enviar"> 
+                </div>
+</form>
+        </div>
+                </div>
+
+<div id="panelpasajes" class="mws-panel grid_4 mws-collapsible mws-collapsed">
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-truck">Generar Orden de Pasajes</span>
+     </div>
+<div class="mws-panel-body">
+<form class="mws-form" action="{{ path('socio_show', {'tipo':'pasajes','id':entity.id}) }}" method="post" {{ form_enctype(form_pasajes) }}>
+     {% if app.session.hasFlash('error-pasajes') %}
+    <script>
+        $("#panelpasajes").removeClass("mws-collapsed");
+    </script>
+<div class="mws-form-message error">
+    {{ app.session.flash('error-pasajes') }}
+</div>
+{% endif %}
+{#
+ <div id class="mws-form-row">
+            {{ form_label(form.Num_Documento) }}
+            {{ form_errors(form.Num_Documento) }}
+                <div class="mws-form-item large">     
+                    {{ form_widget(form.Num_Documento,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+            </div>
+#}
+
+        
+
+    {{ form_errors(form_pasajes) }}
+                
+                <div class="mws-form-row" hidden="hidden">
+                {{ form_label(form_pasajes.proveedor) }}
+                {{ form_errors(form_pasajes.proveedor) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_pasajes.proveedor,{ 'attr' : { 'class' : 'proveedorId'}}) }}
+                
+                </div>
+                        
+                </div>
+
+                
+                 <div class="mws-form-row">
+                {{ form_label(form_pasajes.proveedor_desc) }}
+                {{ form_errors(form_pasajes.proveedor_desc) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_pasajes.proveedor_desc,{ 'attr' : { 'class' : 'mws-textinput proveedorDesc','readonly':'readonly' }}) }}
+                <a class="listas"  href="{{ path('lista_proveedores') }}">
+                                    <img src="{{ asset('css/icons/32/zoom.png') }}" />
+                                </a>
+                </div>   
+                </div>
+    
+                
+    
+                <div class="mws-form-row">
+                {{ form_label(form_pasajes.importe) }}
+                {{ form_errors(form_pasajes.importe) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_pasajes.importe,{ 'attr' : { 'class' : 'mws-textinput importe' }}) }}
+                </div>   
+                </div>
+    
+                <div class="mws-form-row">
+                {{ form_label(form_pasajes.tipo_viaje) }}
+                {{ form_errors(form_pasajes.tipo_viaje) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_pasajes.tipo_viaje,{ 'attr' : { 'class' : 'chzn-select', 'style' : 'width:350px;' }}) }}
+                </div>   
+                </div>
+                
+                <div class="mws-form-row">
+                {{ form_label(form_pasajes.cantidad_pasajeros) }}
+                {{ form_errors(form_pasajes.cantidad_pasajeros) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_pasajes.cantidad_pasajeros,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+    
+                <div  class="mws-form-row">
+                {{ form_label(form_pasajes.origen) }}
+                {{ form_errors(form_pasajes.origen) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_pasajes.origen,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+    
+                <div  class="mws-form-row">
+                {{ form_label(form_pasajes.destino) }}
+                {{ form_errors(form_pasajes.destino) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_pasajes.destino,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                
+                {{ form_rest(form_pasajes) }}
+                <div id class="mws-form-row">
+                <input type="submit" class="mws-button green medium" value="Enviar"> 
+                </div>
+</form>
+        </div>
+                </div>
+
+
+<div id="panelprestamo" class="mws-panel grid_4 mws-collapsible mws-collapsed">
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-money">Generar Prestamo</span>
+     </div>
+<div class="mws-panel-body">
+<form class="mws-form" action="{{ path('socio_show', {'tipo':'prestamo','id':entity.id}) }}" method="post" {{ form_enctype(form_prestamo) }}>
+     
+
+
+        
+{% if app.session.hasFlash('error-prestamo') %}
+    <script>
+        $("#panelprestamo").removeClass("mws-collapsed");
+    </script>
+<div class="mws-form-message error">
+    {{ app.session.flash('error-prestamo') }}
+</div>
+{% endif %}
+    {{ form_errors(form_prestamo) }}
+                
+                <div  class="mws-form-row" hidden="hidden">
+                {{ form_label(form_prestamo.proveedor) }}
+                {{ form_errors(form_prestamo.proveedor) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_prestamo.proveedor,{ 'attr' : { 'class' : 'proveedorId'}}) }}
+                
+                </div>
+                        
+                </div>
+
+                
+                 <div  class="mws-form-row">
+                {{ form_label(form_prestamo.proveedor_desc) }}
+                {{ form_errors(form_prestamo.proveedor_desc) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_prestamo.proveedor_desc,{ 'attr' : { 'class' : 'mws-textinput proveedorDesc','readonly':'readonly' }}) }}
+                <a class="listas"  href="{{ path('lista_proveedores') }}">
+                                    <img src="{{ asset('css/icons/32/zoom.png') }}" />
+                                </a>
+                </div>   
+                </div>
+    
+                <div  class="mws-form-row">
+                {{ form_label(form_prestamo.importe) }}
+                {{ form_errors(form_prestamo.importe) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_prestamo.importe,{ 'attr' : { 'class' : 'mws-textinput importe' }}) }}
+                </div>   
+                </div>
+                
+                
+                
+                
+                
+                {{ form_rest(form_prestamo) }}
+                <div id class="mws-form-row">
+                <input type="submit" class="mws-button green medium" value="Enviar"> 
+                </div>
+                
+    
+</form>
+        </div>
+                </div> 
+<div id="panelevento" class="mws-panel grid_4 mws-collapsible mws-collapsed">
+    <div class="mws-panel-header">
+       <span class="mws-i-24 i-money">Suscribir Evento</span>
+     </div>
+<div class="mws-panel-body">
+<form class="mws-form" action="{{ path('socio_show', {'tipo':'evento','id':entity.id}) }}" method="post" {{ form_enctype(form_evento) }}>
+     
+
+
+        
+{% if app.session.hasFlash('error-prestamo') %}
+    <script>
+        $("#panelprestamo").removeClass("mws-collapsed");
+    </script>
+<div class="mws-form-message error">
+    {{ app.session.flash('error-prestamo') }}
+</div>
+{% endif %}
+    {{ form_errors(form_evento) }}
+                
+                <div  class="mws-form-row" hidden="hidden">
+                {{ form_label(form_evento.proveedor) }}
+                {{ form_errors(form_evento.proveedor) }}
+                <div class="mws-form-item large">  
+                {{ form_widget(form_evento.proveedor,{ 'attr' : { 'class' : 'eventoId'}}) }}
+                
+                </div>
+                        
+                </div>
+
+                
+                 <div  class="mws-form-row">
+                {{ form_label(form_evento.proveedor_desc) }}
+                {{ form_errors(form_evento.proveedor_desc) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_evento.proveedor_desc,{ 'attr' : { 'class' : 'mws-textinput eventoDesc','readonly':'readonly' }}) }}
+                <a class="listas"  href="{{ path('lista_eventos') }}">
+                                    <img src="{{ asset('css/icons/32/zoom.png') }}" />
+                                </a>
+                </div>   
+                </div>
+    
+                <div  class="mws-form-row">
+                {{ form_label(form_evento.importe) }}
+                {{ form_errors(form_evento.importe) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_evento.importe,{ 'attr' : { 'class' : 'mws-textinput importe' }}) }}
+                </div>   
+                </div>
+    
+    <div  class="mws-form-row">
+                {{ form_label(form_evento.cantidad_cuotas) }}
+                {{ form_errors(form_evento.cantidad_cuotas) }}
+                <div class="mws-form-item small">  
+                {{ form_widget(form_evento.cantidad_cuotas,{ 'attr' : { 'class' : 'mws-textinput' }}) }}
+                </div>   
+                </div>
+                
+                
+                
+                
+                
+                {{ form_rest(form_evento) }}
+                <div id class="mws-form-row">
+                <input type="submit" class="mws-button green medium" value="Enviar"> 
+                </div>
+                
+    
+</form>
+        </div>
+                </div>   
+
+
+{% if entity.bajas|length > 0 %}            
+
+<div class="mws-panel grid_4 mws-collapsible mws-collapsed">
+                    
+    <div class="mws-panel-header">
+                    	<span class="mws-i-24 i-arrow-down">Historial de Bajas</span>
+                    </div>
+    <div class="mws-panel-body">
+        
+        <div class="mws-panel-content">
+        
+                            
+<table class="mws-table">
+    <thead>
+        <tr>
+            <td>Fecha de Baja</td>
+            <td>Usuario de Baja </td>
+            <td>Fecha Alta</td>
+            <td>Usuario Alta</td>
+            
+        </tr>
+    </thead>
+	<tbody>
+            {% for baja in entity.bajas %}
+                <tr>
+                    <td>{{ baja.fechaBaja is empty ? "" : baja.fechaBaja | date("d/m/y") }}</td>
+                    <td>{{ baja.usuarioBaja | title}}</td>
+                    <td>{{ baja.fechaCancelaBaja is empty ? "" : baja.fechaCancelaBaja | date("d/m/y") }}</td>
+                    <td>{{ baja.usuarioCancelaBaja | title }}</td>
+                </tr>
+            
+            {% endfor %}
+      
+    </tbody>
+</table>
+            </div>
+            </div>
+
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+
+{% endblock %}
+
+
